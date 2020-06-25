@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ApprovalDialogue : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class ApprovalDialogue : MonoBehaviour
     public bool showDlg;
     //index for our current line of dialogue and an index for a set question marker of the dialogue 
     public int index, optionIndex;
+    
     public Vector2 scr;
     //object reference to the player
     public MouseLook playerMouseLook;
@@ -19,11 +21,16 @@ public class ApprovalDialogue : MonoBehaviour
     public new string name;
     //array for text for our dialogue
     public string[] dialogueText;
+    public Text speechText;
+    public Text nameText;
+    public Text continueText;
+    public GameObject dialogueBox;
 
     //APPROVAL VARIABLES
     public string[] negText, neuText, posText;
     public int approval;
     public string response1, response2;
+
     public Shop myShop;
     public QuestGiver myQuest;
 
@@ -38,6 +45,9 @@ public class ApprovalDialogue : MonoBehaviour
     {
         if (showDlg)
         {
+            dialogueBox.SetActive(true);
+            nameText.text = name + ": ";
+            speechText.text = dialogueText[index];
             //set up our ratio messurements for 16:9
             scr.x = Screen.width / 16;
             scr.y = Screen.height / 9;
@@ -65,6 +75,7 @@ public class ApprovalDialogue : MonoBehaviour
                     //move forward in our dialouge array
                     index++;
                 }
+                continueText.text = "Next...";
             }
             //else if we are at options
             else if (index == optionIndex)
@@ -123,4 +134,39 @@ public class ApprovalDialogue : MonoBehaviour
             }
         }
     }
+    public void NextDialogue()
+    {
+        if (!(index >= dialogueText.Length - 1 || index == optionIndex))
+        {
+            index++;
+            
+        }
+        else if(index == optionIndex)
+        {
+            index++;
+            if (approval < 1)
+            {
+                approval++;
+                myQuest.OpenQuestWindow();
+            }
+        }
+        else
+        {
+            //close the dialogue box
+            showDlg = false;
+            //set index back to 0 
+            index = 0;
+            //allow cameras mouselook to be turned back on
+            //get the component mouselook on the character and turn that back on
+            Camera.main.GetComponent<MouseLook>().enabled = true;
+            //get the component movement on the character and turn that back on
+            playerMouseLook.enabled = true;
+
+            //lock the mouse cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            //set the cursor to being invisible       
+            Cursor.visible = false;
+        }
+    }
+
 }

@@ -9,6 +9,7 @@ public class Quest
     public QuestState questState;
     public string title;
     public string description;
+    public string condition1, condition2, condition3;
     public int expReward;
     public int goldReward;
     public QuestGoal goal;

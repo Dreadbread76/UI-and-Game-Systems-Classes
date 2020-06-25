@@ -3249,7 +3249,18 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 185518569}
+        m_MethodName: SetName
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
@@ -9833,6 +9844,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
         type: 3}
+      propertyPath: charStats.Array.data[0].plusButton
+      value: 
+      objectReference: {fileID: 1864190039}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[0].minusButton
+      value: 
+      objectReference: {fileID: 109563797}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[1].plusButton
+      value: 
+      objectReference: {fileID: 1614920957}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[1].minusButton
+      value: 
+      objectReference: {fileID: 1887034532}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[2].plusButton
+      value: 
+      objectReference: {fileID: 827437527}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[2].minusButton
+      value: 
+      objectReference: {fileID: 1552658180}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[3].plusButton
+      value: 
+      objectReference: {fileID: 340763593}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[3].minusButton
+      value: 
+      objectReference: {fileID: 1624706988}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[4].plusButton
+      value: 
+      objectReference: {fileID: 372193896}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[4].minusButton
+      value: 
+      objectReference: {fileID: 86857821}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[5].plusButton
+      value: 
+      objectReference: {fileID: 1505362207}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: charStats.Array.data[5].minusButton
+      value: 
+      objectReference: {fileID: 1109684151}
+    - target: {fileID: 4259984834306813401, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
       propertyPath: classDropdown
       value: 
       objectReference: {fileID: 1715290657}
@@ -9871,6 +9942,21 @@ PrefabInstance:
       propertyPath: statText.Array.data[5]
       value: 
       objectReference: {fileID: 604126553}
+    - target: {fileID: 7100667112772119454, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: df2f734b71a437c4fad326c8587c4f0a, type: 2}
+    - target: {fileID: 7100667112772119454, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[3]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4fda56b349adbdb4590e1a759eb66646, type: 2}
+    - target: {fileID: 7100667112772119454, guid: 0161f46ad79ece54a80a3dd59da5795d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[4]
+      value: 
+      objectReference: {fileID: 2100000, guid: af4b2f1a08ebb8645a93c766bdebef4f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0161f46ad79ece54a80a3dd59da5795d, type: 3}
 --- !u!1 &2059096634

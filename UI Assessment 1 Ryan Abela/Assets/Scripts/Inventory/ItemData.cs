@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class ItemData
 {
@@ -219,7 +220,7 @@ public static class ItemData
             Amount = _amount,
             Type = _type,
            
-            Icon = Resources.Load("Icon/" + _icon)as Sprite,
+            Icon = Resources.Load("Icon/" + _icon) as Texture2D,
             Mesh = Resources.Load("Mesh/" + _mesh) as GameObject,
             Heal = _heal,
             Damage = _damage,

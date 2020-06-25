@@ -7,6 +7,7 @@ public class LinearInventory : MonoBehaviour
 {
     public Stats.BaseStats player;
     public static List<Item> inv = new List<Item>();
+    public static List<Button> invButton = new List<Button>();
     public Item selectedItem;
     public static bool showInv;
     public GUIStyle style;
@@ -18,13 +19,21 @@ public class LinearInventory : MonoBehaviour
     public string[] enumTypesForItems;
     public static int money;
 
+    #region Item UI Variables
     public Image itemImage;
     public Text itemName;
     public Text itemValue;
     public Text itemDescription;
     public Text itemHealDmgArm;
-    public ScrollView itemCarryList;
+    public Text itemUsage;
+    #endregion
+
+    public Button inventoryContent;
     public GameObject inventoryScreen;
+    public GameObject objectInfo;
+    public GameObject inventoryTab;
+    public bool showInfo;
+    public RectTransform content;
     
 
     public Transform dropLocation;
@@ -48,9 +57,11 @@ public class LinearInventory : MonoBehaviour
         enumTypesForItems = new string[] { "All", "Food", "Weapon", "Apparel", "Crafting", "Ingredients", "Potions", "Scrolls", "Quest" };
         inv.Add(ItemData.CreateItem(0));
         inv.Add(ItemData.CreateItem(1));
-        inv.Add(ItemData.CreateItem(30));
-
-        
+        inv.Add(ItemData.CreateItem(300));
+        objectInfo.SetActive(false);
+        inventoryScreen.SetActive(false);
+        showInv = false;
+        Display();
     }
 
     // Update is called once per frame
@@ -69,6 +80,7 @@ public class LinearInventory : MonoBehaviour
                     Time.timeScale = 0;
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
+                    inventoryScreen.SetActive(true);
                     return;
                 }
                 else
@@ -78,18 +90,24 @@ public class LinearInventory : MonoBehaviour
                     Cursor.visible = false;
                     currentChest.showChestInv = false;
                     currentChest = null;
+                    inventoryScreen.SetActive(false);
                     return;
                 }
             }
         }
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            
             showInv = !showInv;
+            
             if (showInv)
             {
+                
                 Time.timeScale = 0;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                inventoryScreen.SetActive(true);
+                
                 return;
             }
             else
@@ -99,15 +117,25 @@ public class LinearInventory : MonoBehaviour
                 Cursor.visible = false;
                 currentChest.showChestInv = false;
                 currentChest = null;
+                inventoryScreen.SetActive(false);
                 return;
             }
+        }
+        if (selectedItem.Amount < 1 || selectedItem == null)
+        {
+            objectInfo.SetActive(false);
+        }
+        else
+        {
+            objectInfo.SetActive(true);
         }
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.I))
         {
-            inv.Add(ItemData.CreateItem(Random.Range(0, 3)));
-                inv.Add(ItemData.CreateItem(Random.Range(100, 103)));
+            inv.Add(ItemData.CreateItem(Random.Range(0, 1)));
+                inv.Add(ItemData.CreateItem(Random.Range(100, 102)));
                 inv.Add(ItemData.CreateItem(Random.Range(200, 203)));
+            Display();
         }
         if (Input.GetKey(KeyCode.N))
         {
@@ -117,30 +145,35 @@ public class LinearInventory : MonoBehaviour
         {
             sortType = "All";
         }
+        
 #endif
     }
     void Display()
     {
         if(sortType == "All"  || sortType == "")
         {
+
             if (inv.Count <= 34)
             {
                 for (int i = 0; i < inv.Count; i++)
                 {
-                    if (GUI.Button(new Rect(0.5f * scr.x, 0.25f * scr.y + i * (0.25f * scr.y), 3f * scr.x, 0.25f * scr.y), inv[i].Name))
-                    {
-                        selectedItem = inv[i];
-                        
-                        
-                    }
+                    Text invItemName = inventoryContent.GetComponentInChildren<Text>();
+                    invItemName.text = inv[i].Name;
+                    Instantiate(inventoryContent, content);
+
+                    inventoryContent.onClick.AddListener(delegate () { ShowProperties(); });
+                    
+                    
+
+
+                    
                 }
+                
             }
             else
             {
                 scrollPos = GUI.BeginScrollView(new Rect(0, 0.25f * scr.y, 3.75f, 8.5f * scr.y), scrollPos, new Rect(0, 0, 0, 8.5f * scr.y + (inv.Count - 34)), false, true);
-                  #region EVERYTHING DISPLAYED INSIDE SCROLL VIEW
-
-                  #endregion
+                  
                   
                  
 
@@ -202,31 +235,29 @@ public class LinearInventory : MonoBehaviour
                     sortType = enumTypesForItems[i];
                 }
             }
-            Display();
+            
             if(selectedItem != null)
             {
                 UseItem();
             }
         }
     }
+
     void UseItem()
     {
-        GUI.Box(new Rect(8f * scr.x, 0.25f * scr.y, 3.5f * scr.x, 7f * scr.y), "", style);
-        //GUI.Box(new Rect(4.25f * scr.x, 0.5f * scr.y, 3f * scr.x, 3f * scr.y), selectedItem.Icon);
-        GUI.skin = skin;
-        GUI.Box(new Rect(8.25f * scr.x, 0.5f * scr.y, 3f * scr.x, 0.5f * scr.y), selectedItem.Name);
-        if(currentChest != null)
+        
+        if (currentChest != null)
         {
-            if (GUI.Button(new Rect(8.25f * scr.x,6.75f * scr.y, scr.x, 0.25f * scr.y), "Move Item"))
-            for (int i = 0; i < equipmentSlots.Length; i++)
-            {
+            if (GUI.Button(new Rect(8.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Move Item"))
+                for (int i = 0; i < equipmentSlots.Length; i++)
+                {
                     if (equipmentSlots[i].currentItem != null && selectedItem.Name == equipmentSlots[i].currentItem.name)
                     {
                         Destroy(equipmentSlots[i].currentItem);
                     }
-            }
+                }
             currentChest.chestInv.Add(selectedItem);
-            if(selectedItem.Amount > 1)
+            if (selectedItem.Amount > 1)
             {
                 selectedItem.Amount--;
             }
@@ -239,7 +270,7 @@ public class LinearInventory : MonoBehaviour
         }
         GUI.skin = null;
 
-        
+
         switch (selectedItem.Type)
         {
 
@@ -247,12 +278,14 @@ public class LinearInventory : MonoBehaviour
             case ItemType.Food:
                 GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
 
-                itemImage.sprite = selectedItem.Icon;
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
-                
+                itemUsage.text = "Eat";
+
 
                 if (player.characterStatus[0].currentValue < player.characterStatus[0].maxValue)
                 {
@@ -272,20 +305,22 @@ public class LinearInventory : MonoBehaviour
                     }
                 }
 
-                
+
                 break;
             #endregion
             #region Weaponry
             case ItemType.Weapon:
                 GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
 
-                itemImage.sprite = selectedItem.Icon;
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "Damage: " + selectedItem.Damage.ToString();
+                itemUsage.text = "Equip";
 
-                if (equipmentSlots[2].currentItem == null || selectedItem.Name != equipmentSlots[2].currentItem.name) 
+                if (equipmentSlots[2].currentItem == null || selectedItem.Name != equipmentSlots[2].currentItem.name)
                 {
                     if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
                     {
@@ -312,11 +347,13 @@ public class LinearInventory : MonoBehaviour
             case ItemType.Apparel:
                 GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
 
-                itemImage.sprite = selectedItem.Icon;
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "Armour: " + selectedItem.Armour.ToString();
+                itemUsage.text = "Equip";
 
                 if (equipmentSlots[3].currentItem == null || selectedItem.Name != equipmentSlots[3].currentItem.name)
                 {
@@ -344,11 +381,14 @@ public class LinearInventory : MonoBehaviour
             #region Crafting
             case ItemType.Crafting:
                 GUI.Box(new Rect(10.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
-                itemImage.sprite = selectedItem.Icon;
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "";
+                itemUsage.text = "Use";
                 if (GUI.Button(new Rect(6.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Use"))
                 {
 
@@ -359,11 +399,13 @@ public class LinearInventory : MonoBehaviour
             case ItemType.Ingredients:
                 GUI.Box(new Rect(4.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
 
-                itemImage.sprite = selectedItem.Icon;
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "";
+                itemUsage.text = "Use";
 
                 if (GUI.Button(new Rect(6.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Use"))
                 {
@@ -372,44 +414,52 @@ public class LinearInventory : MonoBehaviour
                 break;
             #endregion
             #region Potions
+
             case ItemType.Potions:
                 GUI.Box(new Rect(4.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
-                itemImage.sprite = selectedItem.Icon;
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
+                itemUsage.text = "Drink";
+
                 if (GUI.Button(new Rect(6.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Drink"))
                 {
 
                 }
                 break;
+
             #endregion
             #region Scrolls
             case ItemType.Scrolls:
                 GUI.Box(new Rect(4.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
-                itemImage.sprite = selectedItem.Icon;
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                 itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
                 itemValue.text = "Value: " + selectedItem.Value.ToString();
                 itemDescription.text = selectedItem.ItemDescription;
                 itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
-                if (GUI.Button(new Rect(6.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Use"))
-                {
-
-                }
+                itemUsage.text = "Use";
                 break;
+                
             #endregion
             #region Quest
             case ItemType.Quest:
                 break;
             #endregion
+            #region Money
             case ItemType.Money:
                 break;
+            #endregion
             default:
                 break;
         }
         //DISCARD BUTTON
-        if(GUI.Button(new Rect(8.25f * scr.x, 4f * scr.y, 3f *scr.x,1f* scr.y), "Discard"))
+        if (GUI.Button(new Rect(8.25f * scr.x, 4f * scr.y, 3f * scr.x, 1f * scr.y), "Discard"))
         {
             for (int i = 0; i < equipmentSlots.Length; i++)
             {
@@ -433,5 +483,221 @@ public class LinearInventory : MonoBehaviour
                 return;
             }
         }
+
+    }
+    public void Discard()
+    {
+        if(selectedItem.Amount > 0)
+        {
+            selectedItem.Amount--;
+            
+        }
+    }
+    public void ShowProperties()
+    {
+        Debug.Log("Inventory Clicked");
+        objectInfo.SetActive(true);
+        if (currentChest != null)
+        {
+            
+                for (int i = 0; i < equipmentSlots.Length; i++)
+                {
+                    if (equipmentSlots[i].currentItem != null && selectedItem.Name == equipmentSlots[i].currentItem.name)
+                    {
+                        Destroy(equipmentSlots[i].currentItem);
+                    }
+                }
+            currentChest.chestInv.Add(selectedItem);
+            if (selectedItem.Amount > 1)
+            {
+                selectedItem.Amount--;
+            }
+            else
+            {
+                inv.Remove(selectedItem);
+                selectedItem = null;
+                return;
+            }
+        }
+        switch (selectedItem.Type)
+        {
+
+            #region Food
+            case ItemType.Food:
+                
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
+                itemUsage.text = "Eat";
+
+
+                if (player.characterStatus[0].currentValue < player.characterStatus[0].maxValue)
+                {
+                    if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Eat"))
+                    {
+                        player.characterStatus[0].currentValue += selectedItem.Heal;
+                        if (selectedItem.Amount > 1)
+                        {
+                            selectedItem.Amount--;
+                        }
+                        else
+                        {
+                            inv.Remove(selectedItem);
+                            selectedItem = null;
+                            return;
+                        }
+                    }
+                }
+
+
+                break;
+            #endregion
+            #region Weaponry
+            case ItemType.Weapon:
+                GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "Damage: " + selectedItem.Damage.ToString();
+                itemUsage.text = "Equip";
+
+                if (equipmentSlots[2].currentItem == null || selectedItem.Name != equipmentSlots[2].currentItem.name)
+                {
+                    if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
+                    {
+                        if (equipmentSlots[2].currentItem != null)
+                        {
+                            Destroy(equipmentSlots[2].currentItem);
+                        }
+                        GameObject curItem = Instantiate(selectedItem.Mesh, equipmentSlots[2].equipLocation);
+                        equipmentSlots[2].currentItem = curItem;
+                        curItem.name = selectedItem.Name;
+
+                    }
+                }
+                else
+                {
+                    if (GUI.Button(new Rect(8.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
+                    {
+                        Destroy(equipmentSlots[3].currentItem);
+                    }
+                }
+                break;
+            #endregion
+            #region Apparel
+            case ItemType.Apparel:
+                GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "Armour: " + selectedItem.Armour.ToString();
+                itemUsage.text = "Equip";
+
+                if (equipmentSlots[3].currentItem == null || selectedItem.Name != equipmentSlots[3].currentItem.name)
+                {
+                    if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
+                    {
+                        if (equipmentSlots[3].currentItem != null)
+                        {
+                            Destroy(equipmentSlots[3].currentItem);
+                        }
+                        GameObject curItem = Instantiate(selectedItem.Mesh, equipmentSlots[3].equipLocation);
+                        equipmentSlots[3].currentItem = curItem;
+                        curItem.name = selectedItem.Name;
+
+                    }
+                }
+                else
+                {
+                    if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
+                    {
+                        Destroy(equipmentSlots[3].currentItem);
+                    }
+                }
+                break;
+            #endregion
+            #region Crafting
+            case ItemType.Crafting:
+               
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "";
+                itemUsage.text = "Use";
+                break;
+
+            #endregion
+            #region Ingredients
+            case ItemType.Ingredients:
+                
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "";
+                itemUsage.text = "Use";
+                break;
+            #endregion
+            #region Potions
+
+            case ItemType.Potions:
+                
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
+                itemUsage.text = "Drink";
+                break;
+                
+
+            #endregion
+            #region Scrolls
+            case ItemType.Scrolls:
+                
+
+                objectInfo.SetActive(true);
+                itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
+                itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
+                itemValue.text = "Value: " + selectedItem.Value.ToString();
+                itemDescription.text = selectedItem.ItemDescription;
+                itemHealDmgArm.text = "Heal: " + selectedItem.Heal.ToString();
+                itemUsage.text = "Use";
+                break;
+
+            #endregion
+            #region Quest
+            case ItemType.Quest:
+                break;
+            #endregion
+            #region Money
+            case ItemType.Money:
+                break;
+            #endregion
+            default:
+                break;
+        }
+        
+    }
+    public void SortInventory(string sortingType)
+    {
+        sortType = sortingType;
     }
 }

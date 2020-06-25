@@ -8,6 +8,7 @@ public class Interact : MonoBehaviour
     #region Variables
     public Stats.BaseStats player;
     public CanvasDialogue dlgMaster;
+    public LinearInventory linearInventory;
     //[Header("Player and Camera connection")]
     //create two gameobject variables one called player and the other mainCam
     #endregion

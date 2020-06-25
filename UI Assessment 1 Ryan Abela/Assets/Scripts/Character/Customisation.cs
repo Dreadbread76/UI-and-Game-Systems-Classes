@@ -32,6 +32,8 @@ public class Customisation : Statistics
     [Header("Character Name")]
     //self explanitory
     public string charName;
+    public string characterName;
+   
 
     [Header("Character Class")]
     public CharacterClass charClass = CharacterClass.Barbarian;
@@ -52,7 +54,15 @@ public class Customisation : Statistics
     public Text[] statText;
     string[] tempName = new string[] { "Strength", "Dexterity", "Constitution", "Wisdom", "Intelligence", "Charisma" };
     #endregion
+    public struct PointUI
+    {
+        public Statistics.StatBlock stat;
+        public Text nameDisplay;
+        public GameObject plusButton;
+        public GameObject minusButton;
 
+    }
+    public PointUI[] pointSystem;
 
     private void Awake()
     {
@@ -64,10 +74,13 @@ public class Customisation : Statistics
         selectedClass = new string[] { "Barbarian", "Bard", "Druid", "Monk", "Paladin", "Ranger", "Sorcerer", "Warlock" };
         ChooseClass(selectedIndex);
 
-        for (int i = 0; i < tempName.Length; i++)
-        {
-            //charStats[i].name = tempName
-        }
+        /* for (int i = 0; i < charStats.Length; i++)
+         {
+             charStats[i].nameDisplay.text = charStats[i].name + ": " +
+                 (charStats[i].value + charStats[i].tempValue);
+
+             pointSystem[i].minusButton.SetActive(false);
+         }*/
         #region Skin
         for (int i = 0; i < skinMax; i++)
         {
@@ -261,161 +274,7 @@ public class Customisation : Statistics
     }
     
 #endregion
-    /*
-    private void OnGUI()
-    {
-        Vector2 scr = new Vector2(Screen.width / 15, Screen.height / 9);
-        int i = 0;
-        #region Skin
-        if(GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Skin", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y, 1.5f * scr.x, 0.5f * scr.y),"Skin");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y, 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Skin", 1);
-        }
-
-        i++;
-        #endregion
-        #region Hair
-        if (GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y +(i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Hair", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 1.5f * scr.x, 0.5f * scr.y), "Hair");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Hair", 1);
-        }
-        i++;
-
-        #endregion
-        #region Mouth
-        if (GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Mouth", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 1.5f * scr.x, 0.5f * scr.y), "Mouth");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Mouth", 1);
-        }
-        i++;
-
-        #endregion
-        #region Eyes
-        if (GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Eyes", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 1.5f * scr.x, 0.5f * scr.y), "Eyes");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Eyes", 1);
-        }
-        i++;
-
-        #endregion
-        #region Clothes
-        if (GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Clothes", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 1.5f * scr.x, 0.5f * scr.y), "Clothes");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Clothes", 1);
-        }
-        i++;
-
-        #endregion
-        #region Armour
-        if (GUI.Button(new Rect(0.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "<"))
-        {
-            SetTexture("Armour", -1);
-        }
-        GUI.Box(new Rect(0.75f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 1.5f * scr.x, 0.5f * scr.y), "Armour");
-        if (GUI.Button(new Rect(2.25f * scr.x, 0.5f * scr.y + (i * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), ">"))
-        {
-            SetTexture("Armour", 1);
-        }
-        i++;
-
-        #endregion
-
-        #region Character Class
-        i = 0;
-        //CHARACTER CLASS DROPDOWN BUTTON
-        if(GUI.Button(new Rect(12f*scr.x, 1.5f * scr.y + (i * 0.5f * scr.y), 2 * scr.x, 0.5f * scr.y), classButton))
-        {
-            showDropdown = !showDropdown;
-        }
-        i++;
-        //CHARACTER CLASS DROPDOWN LIST
-        if (showDropdown)
-        {
-            scrollPos = GUI.BeginScrollView(
-                new Rect(12f * scr.x, 1.5f * scr.y + (i * 0.5f * scr.y), 2 * scr.x, 2f * scr.y), scrollPos, 
-                new Rect(0,0,0,selectedClass.Length * 0.5f * scr.y), false, true);
-            for (int c = 0; c < selectedClass.Length; c++)
-            {
-                if (GUI.Button(new Rect(0, 0.5f * scr.y * c, 1.75f * scr.x, 0.5f * scr.y), selectedClass[c]))
-                {
-                    ChooseClass(c);
-                    classButton = selectedClass[c];
-                    showDropdown = false;
-                }
-            }
-            GUI.EndScrollView();
-        }
-        //STAT POINT DISTRIBUTION
-        GUI.Box(new Rect(12f * scr.x, 3.5f * scr.y + (i * 0.5f * scr.y), 2 * scr.x, 0.5f * scr.y), "Points" + statPoints);
-        for (int s = 0; s < charStats.Length; s++)
-        {
-            if (statPoints > 0)
-            {
-                if(GUI.Button(new Rect(11.5f * scr.x, 4.5f * scr.y + (s * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y),"+"))
-                {
-                    statPoints--;
-                    charStats[s].tempValue++;
-                }
-            }
-            GUI.Box(new Rect(12f * scr.x, 4.5f * scr.y + (s * 0.5f * scr.y), 2 * scr.x, 0.5f * scr.y),
-                charStats[s].name + ": "+(charStats[s].value + charStats[s].tempValue));
-            if (statPoints < 10 && charStats[s].tempValue>0)
-            {
-                if(GUI.Button(new Rect(14f * scr.x, 4.5f * scr.y + (s * 0.5f * scr.y), 0.5f * scr.x, 0.5f * scr.y), "-"))
-                {
-                    statPoints++;
-                    charStats[s].tempValue--;
-                }
-            }
-        }
-
-        if (statPoints < 10)
-        {
-            if (GUI.Button(new Rect(12f * scr.x, 8f * scr.y + (i * 0.5f * scr.y), 2f * scr.x, 0.5f * scr.y), "Reset"))
-            {
-                statPoints = 10;
-                for (int s = 0; s < charStats.Length; s++)
-                {
-                    charStats[s].tempValue = 0;
-                }
-            }
-        }
-
-        charName = GUI.TextField(new Rect(12f * scr.x, 8f * scr.y + (i * 0.5f * scr.y), 2f * scr.x, 0.5f * scr.y), charName, 32);
-        if (GUI.Button(new Rect(12f * scr.x, 8f * scr.y + (i * 0.5f * scr.y), 2f * scr.x, 0.5f * scr.y), "Save"))
-        {
-            SaveCharacter();
-            SceneManager.LoadScene(1);
-        }
-
-        #endregion
-    }
-    */
+   
     public void SaveCharacter()
     {
         PlayerPrefs.SetInt("SkinIndex", skinIndex);
@@ -549,6 +408,7 @@ public class Customisation : Statistics
                 break;
 
         }
+        
 
     }
     public void AddPoint(int val)
@@ -558,9 +418,19 @@ public class Customisation : Statistics
             statPoints--;
             charStats[val].value++;
         }
-        
-       
-       
+        else
+        {
+            for (int button = 0; button < charStats.Length; button++)
+            {
+                charStats[button].plusButton.SetActive(false);
+            }
+        }
+            
+        if (charStats[val].minusButton.activeSelf == false)
+        {
+            charStats[val].minusButton.SetActive(true);
+        }
+
     }
     public void RemovePoint(int val)
     {
@@ -570,9 +440,20 @@ public class Customisation : Statistics
             statPoints++;
             charStats[val].value--;
         }
-        
-        
+        if (charStats[val].value <= 0)
+        {
+            charStats[val].minusButton.SetActive(false);
 
+        }
+        if (charStats[val].plusButton.activeSelf == false)
+        {
+            for (int button = 0; button < charStats.Length; button++)
+            {
+                charStats[button].plusButton.SetActive(true);
+            }
+        }
+        
+        
 
     }
     public void SetTexturePos(string type)
@@ -582,6 +463,10 @@ public class Customisation : Statistics
     public void SetTextureNeg(string type)
     {
         SetTexture(type, 1);
+    }
+    public void SetName(string charName)
+    {
+        characterName = charName;
     }
 
 }

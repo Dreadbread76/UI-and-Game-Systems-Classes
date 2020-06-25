@@ -240,27 +240,77 @@ MonoBehaviour:
   - name: Strength
     value: 0
     tempValue: 0
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
   - name: Dexterity
     value: 0
     tempValue: 0
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
   - name: Constitution
     value: 0
     tempValue: 0
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
   - name: Wisdom
     value: 0
     tempValue: 0
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
   - name: Intelligence
     value: 0
     tempValue: 0
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
   - name: Charisma
     value: 0
     tempValue: 0
-  skin: []
-  hair: []
-  mouth: []
-  eyes: []
-  clothes: []
-  armour: []
+    plusButton: {fileID: 0}
+    minusButton: {fileID: 0}
+  skin:
+  - {fileID: 2800000, guid: 410b9edfe4f32694b885cd91b3b0b062, type: 3}
+  - {fileID: 2800000, guid: b5db6082526017848a826a758b757eeb, type: 3}
+  - {fileID: 2800000, guid: 49d62ba0c8434224fb66c817eea166c2, type: 3}
+  - {fileID: 2800000, guid: c046a4d61f6e2104ab7af1ac097686d7, type: 3}
+  hair:
+  - {fileID: 2800000, guid: 5c68f0fbf3cfc0b48a69f6ad3d79ad58, type: 3}
+  - {fileID: 2800000, guid: 4c440ab958a60da4aaf5b688fd8df43a, type: 3}
+  - {fileID: 2800000, guid: ddf8ccb8dcdf4614597b19b47ec517ef, type: 3}
+  - {fileID: 2800000, guid: 76ad3986bbbbd9b42a1af239c64d78bf, type: 3}
+  - {fileID: 2800000, guid: 1c3a7ca15a02faa44a8b90459452b456, type: 3}
+  mouth:
+  - {fileID: 2800000, guid: 4492554c4a743dc468a1b434e928970d, type: 3}
+  - {fileID: 2800000, guid: 84e85df6d82288e4892f82452176fcfd, type: 3}
+  - {fileID: 2800000, guid: f6a766f0e644d7045be32ca20efefd18, type: 3}
+  eyes:
+  - {fileID: 2800000, guid: 8465c00983397ca4694a079db38720d2, type: 3}
+  - {fileID: 2800000, guid: 56cc621e75cff8440b6b899b90a5c6b6, type: 3}
+  - {fileID: 2800000, guid: 33d29bb45c3e57c49b03d95ee9fc03b2, type: 3}
+  - {fileID: 2800000, guid: 88541357023c69e498cf437931f8c5f3, type: 3}
+  clothes:
+  - {fileID: 2800000, guid: 0b74f98c216b08b4e810ac787216b9a0, type: 3}
+  - {fileID: 2800000, guid: 383504c5784b13840af3a8699ebd0e4e, type: 3}
+  - {fileID: 2800000, guid: 61136125fb22d4c4eb52382b833ce560, type: 3}
+  - {fileID: 2800000, guid: 0267db678318097438b9bea366828624, type: 3}
+  - {fileID: 2800000, guid: 9aaf5a18696ad64429c273309f478b18, type: 3}
+  - {fileID: 2800000, guid: 7d3cccdbe02848c46a9bc71b17c3e40b, type: 3}
+  - {fileID: 2800000, guid: 9022fb5aa2bafc74ab51d4fe58b60ed2, type: 3}
+  - {fileID: 2800000, guid: a155aaa9d4846f44583b7564a9029e74, type: 3}
+  - {fileID: 2800000, guid: 57668da62b46228459e2febda46d87d3, type: 3}
+  - {fileID: 2800000, guid: d67b127592f7182428833c7bdcd009bc, type: 3}
+  - {fileID: 2800000, guid: f86db8ea026d8c6478f6377e75d6a44c, type: 3}
+  armour:
+  - {fileID: 2800000, guid: 6acb268b28e907b4f8ce82139a92a61c, type: 3}
+  - {fileID: 2800000, guid: 695a82caf8af7ef449f654c2b7c1539b, type: 3}
+  - {fileID: 2800000, guid: 08ae677cec42ef94e9715bbdea911b59, type: 3}
+  - {fileID: 2800000, guid: a4741d5be1955184d92d9a55bba3bbcd, type: 3}
+  - {fileID: 2800000, guid: d65c5ec9782c30e4a96816ea6afa17f2, type: 3}
+  - {fileID: 2800000, guid: c88c47aae5d49b24abaa884812d9943a, type: 3}
+  - {fileID: 2800000, guid: b710f1fe4fb1e3845a3590ea722b1c8e, type: 3}
+  - {fileID: 2800000, guid: d5275f2c628a40047a7121ce97357fa1, type: 3}
+  - {fileID: 2800000, guid: 1a7cb924ca255e0468ba87b7204d3397, type: 3}
+  - {fileID: 2800000, guid: 429151d5506c55741aeb2939bf6a71b0, type: 3}
+  - {fileID: 2800000, guid: 9496964f98a950749a954b4b1c87bd7a, type: 3}
   skinIndex: 0
   clothesIndex: 0
   eyesIndex: 0
@@ -275,6 +325,7 @@ MonoBehaviour:
   mouthMax: 3
   armourMax: 11
   charName: 
+  characterName: 
   charClass: 0
   selectedClass:
   - 

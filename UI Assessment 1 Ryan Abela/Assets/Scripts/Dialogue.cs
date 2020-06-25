@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 //this script can be found in the Component section under the option NPC/Dialogue
 [AddComponentMenu("Game Systems/RPG/NPC/Dialogue Linear")]
 
@@ -21,10 +22,17 @@ public class Dialogue : MonoBehaviour
     public new string name;
     //array for text for our dialogue
     public string[] dialogueText;
+    public Text speechText;
+    public Text nameText;
+    public Text continueText;
+    public GameObject dialogueBox;
     #endregion
     #region Start
-    //find and reference the player object by tag
-    //find and reference the maincamera by tag and get the mouse look component 
+   private void Start()
+    {
+        playerMouseLook = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>();
+        
+    }
     #endregion
 
     #region OnGUI
@@ -33,6 +41,9 @@ public class Dialogue : MonoBehaviour
         //if our dialogue can be seen on screen
         if (showDlg)
         {
+            dialogueBox.SetActive(true);
+            nameText.text = name + ": ";
+            speechText.text = dialogueText[index];
             //set up our ratio messurements for 16:9
             scr.x = Screen.width / 16;
             scr.y = Screen.height / 9;

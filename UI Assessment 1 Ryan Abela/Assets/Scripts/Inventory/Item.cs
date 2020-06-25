@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Item
 {
@@ -11,7 +12,7 @@ public class Item
     private int _value;
     private int _amount;
     
-    private Sprite _icon;
+    private Texture2D _icon;
     private GameObject _mesh;
     private ItemType _type;
     private int _heal;
@@ -45,7 +46,7 @@ public class Item
         set { _amount = value; }
     }
     
-    public Sprite Icon
+    public Texture2D Icon
     {
         get { return _icon; }
         set { _icon = value; }
