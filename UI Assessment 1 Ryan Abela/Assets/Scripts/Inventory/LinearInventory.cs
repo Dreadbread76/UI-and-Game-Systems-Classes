@@ -160,10 +160,12 @@ public class LinearInventory : MonoBehaviour
                     Text invItemName = inventoryContent.GetComponentInChildren<Text>();
                     invItemName.text = inv[i].Name;
                     Instantiate(inventoryContent, content);
-
-                    inventoryContent.onClick.AddListener(delegate () { ShowProperties(); });
+                    invButton.Add(inventoryContent);
+                    inventoryContent.onClick.AddListener(ShowProperties);
                     
                     
+                    
+                   
 
 
                     

@@ -2831,7 +2831,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_Spacing: 0.2
   m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -17162,7 +17162,7 @@ MonoBehaviour:
   descriptionText: {fileID: 784897582}
   experienceText: {fileID: 1757586286}
   goldText: {fileID: 352774619}
-  condition1Text: {fileID: 0}
+  condition1Text: {fileID: 31108414}
   condition2Text: {fileID: 0}
   condition3Text: {fileID: 0}
   statusText: {fileID: 0}
