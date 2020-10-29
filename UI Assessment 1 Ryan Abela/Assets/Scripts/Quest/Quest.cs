@@ -16,7 +16,7 @@ public class Quest
     public void Complete()
     {
         questState = QuestState.Complete;
-        Debug.Log(title + " was Complete");
+        
     }
     public void Claimed()
     {

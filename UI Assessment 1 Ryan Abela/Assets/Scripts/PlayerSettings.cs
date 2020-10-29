@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor;
 
 
 
@@ -11,7 +12,7 @@ public class PlayerSettings : MonoBehaviour
     private Toggle toggle;
     [SerializeField]
     private AudioSource myAudio;
-
+    public Toggle fullscreenToggle;
     public void Awake()
     {
         if (!PlayerPrefs.HasKey("music"))
@@ -41,8 +42,28 @@ public class PlayerSettings : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void SavePlayerPrefs()
     {
-        
+        if (Screen.fullScreen)
+        {
+            PlayerPrefs.SetInt("fullscreen", 1);
+
+        }
+        else
+        {
+            PlayerPrefs.SetInt("fullscreen", 0);
+        }
+        PlayerPrefs.Save();
+    }
+    public void LoadPlayerPrefs()
+    {
+        if (PlayerPrefs.GetInt("fullscreen") == 0)
+        {
+            fullscreenToggle.isOn = false;
+        }
+        else
+        {
+            fullscreenToggle.isOn = true;
+        }
     }
 }

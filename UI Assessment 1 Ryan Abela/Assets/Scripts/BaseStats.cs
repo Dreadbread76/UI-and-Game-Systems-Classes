@@ -41,16 +41,21 @@ namespace Stats
         public Image damageImage;
         public Image deathImage;
         public Text deathText;
+        public Text reviveText;
         public AudioClip deathClip;
         public AudioSource playersAudio;
         public string[] deathMessages;
         public string[] reviveMessages;
+        public Transform currentCheckpoint;
+        int msgIndex;
 
         public float flashSpeed = 5;
         public Color flashColour = new Color(1, 0, 0, 0.2f);
+        public Color transparent = new Color(0, 0, 0, 0);
+        public Color deathTextColor = new Color(255, 0, 0, 1);
         public static bool isDead;
         //REMOVE LATER
-        public bool damaged;
+        public bool damaged = false;
         public Vector3 savedPosition;
 
         
@@ -59,25 +64,41 @@ namespace Stats
         // Start is called before the first frame update
         void Start()
         {
+            deathText.color = transparent;
+            reviveText.color = transparent;
+            damaged = false;
+            isDead = false;
             LoadPlayer();
+            msgIndex = Random.Range(0, 4);
         }
 
         // Update is called once per frame
         private void Update()
         {
 #if UNITY_EDITOR
+
+            
             if (Input.GetKeyDown(KeyCode.X))
             {
+                
                 damaged = true;
                 characterStatus[0].currentValue -= 25;
             }
 #endif
-
+           
             for (int i = 0; i < characterStatus.Length; i++)
             {
                 characterStatus[i].displayImage.fillAmount = Mathf.Clamp01(characterStatus[i].currentValue / characterStatus[i].maxValue);
             }
-
+            if (damaged == true && !isDead)
+            {
+                damageImage.color = flashColour;
+                damaged = false;
+            }
+            else if (damageImage.color.a > 0)
+            {
+                damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+            }
 
 
         }
@@ -91,21 +112,34 @@ namespace Stats
         }
         void Death()
         {
+            
             //Set death flag to dead and clear existing text
+
             isDead = true;
-            deathText.text = deathMessages[Random.Range(0, 4)];
+            deathText.text = deathMessages[msgIndex];
+            deathText.color = deathTextColor;
+            reviveText.text = "";
             //play death audio
             playersAudio.clip = deathClip;
             playersAudio.Play();
             //Trigger
             deathImage.GetComponent<Animator>().SetTrigger("isDead");
+            Invoke("ReviveText", 2f);
+            Invoke("Revive", 6f);
             //2 Death Text
             //6 Rev Text
             //9 Respawn Function
         }
+        void ReviveText()
+        {
+            reviveText.color = deathTextColor;
+            reviveText.text = reviveMessages[msgIndex];
+            
+        }
         void Revive()
         {
-            deathText.text = "";
+            deathText.color = transparent;
+            reviveText.color = transparent;
             isDead = false;
             characterStatus[0].currentValue = characterStatus[0].maxValue;
             //load position
@@ -125,14 +159,18 @@ namespace Stats
             characterStatus[0].currentValue = data.savedHealth;
             name = data.savedName;
             currentExp = data.savedExp;
+            
 
             Vector3 position;
             position.x = data.savedPlayerPos[0];
             position.y = data.savedPlayerPos[1];
             position.z = data.savedPlayerPos[2];
+
             transform.position = position;
             Debug.Log("Saved");
             savedPosition = position;
+
+
         }
         #endregion
         #region  Quest

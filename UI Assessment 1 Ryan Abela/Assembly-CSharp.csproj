@@ -90,13 +90,15 @@
     <Compile Include="Assets\Scripts\OptionsMenu.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\PLAYER.cs" />
-    <Compile Include="Assets\Scripts\PlayerData.cs" />
     <Compile Include="Assets\Scripts\PlayerSettings.cs" />
     <Compile Include="Assets\Scripts\PressAnyKey.cs" />
     <Compile Include="Assets\Scripts\Quest\Quest.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestGiver.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestGoal.cs" />
-    <Compile Include="Assets\Scripts\Save.cs" />
+    <Compile Include="Assets\Scripts\Saving\PlayerBinary.cs" />
+    <Compile Include="Assets\Scripts\Saving\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\Saving\PlayerSaveAndLoad.cs" />
+    <Compile Include="Assets\Scripts\Saving\Save.cs" />
     <Compile Include="Assets\Scripts\UI.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/ryana/UI Assessment 1 Ryan Abela/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
