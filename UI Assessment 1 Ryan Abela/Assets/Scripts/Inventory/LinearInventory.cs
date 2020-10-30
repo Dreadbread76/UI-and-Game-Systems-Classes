@@ -1,7 +1,8 @@
-﻿
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class LinearInventory : MonoBehaviour
 {
@@ -20,11 +21,12 @@ public class LinearInventory : MonoBehaviour
     public static int money;
 
     #region Item UI Variables
-    public Image itemImage;
-    public Text itemName;
-    public Text itemValue;
-    public Text itemDescription;
-    public Text itemHealDmgArm;
+   [SerializeField] public Image itemImage;
+   [SerializeField] public Text itemName;
+   [SerializeField] public Text itemValue;
+   [SerializeField] public Text itemDescription;
+   [SerializeField] private ItemType type;
+   [SerializeField] public Text itemHealDmgArm;
     public Text itemUsage;
     #endregion
 
@@ -43,6 +45,7 @@ public class LinearInventory : MonoBehaviour
         public string slotName;
         public Transform equipLocation;
         public GameObject currentItem;
+        public Item item;
     };
     public Equipment[] equipmentSlots;
 
@@ -50,6 +53,7 @@ public class LinearInventory : MonoBehaviour
     public static Chest currentChest;
     public static Shop currentShop;
     // Start is called before the first frame update
+
     void Start()
     {
         
@@ -107,7 +111,16 @@ public class LinearInventory : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 inventoryScreen.SetActive(true);
+
                 
+                /*int CountOfItemtypes = Enum.GetNames(typeof(ItemType)).Length;
+                {
+                    for (int i = 0 < CountOfItemtypes; i++)
+                    {
+                        Instantiate(Button, 0,0,0);
+                    }
+                }
+                */
                 return;
             }
             else
@@ -121,14 +134,18 @@ public class LinearInventory : MonoBehaviour
                 return;
             }
         }
-        if (selectedItem.Amount < 1 || selectedItem == null)
+        if (selectedItem != null)
         {
-            objectInfo.SetActive(false);
+            if (selectedItem.Amount < 1 || selectedItem == null)
+            {
+                objectInfo.SetActive(false);
+            }
+            else
+            {
+                objectInfo.SetActive(true);
+            }
         }
-        else
-        {
-            objectInfo.SetActive(true);
-        }
+       
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.I))
         {
@@ -157,6 +174,8 @@ public class LinearInventory : MonoBehaviour
             {
                 for (int i = 0; i < inv.Count; i++)
                 {
+                    
+                    
                     Text invItemName = inventoryContent.GetComponentInChildren<Text>();
                     invItemName.text = inv[i].Name;
                     Button carolus = Instantiate(inventoryContent, content);
@@ -294,16 +313,14 @@ public class LinearInventory : MonoBehaviour
                 {
                     if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Eat"))
                     {
+                        selectedItem.Amount--;
                         player.characterStatus[0].currentValue += selectedItem.Heal;
-                        if (selectedItem.Amount > 1)
-                        {
-                            selectedItem.Amount--;
-                        }
-                        else
+                       
+                        if(selectedItem.Amount <= 0)
                         {
                             inv.Remove(selectedItem);
                             selectedItem = null;
-                            return;
+                            break;
                         }
                     }
                 }
@@ -339,10 +356,9 @@ public class LinearInventory : MonoBehaviour
                 }
                 else
                 {
-                    if (GUI.Button(new Rect(8.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Equip"))
-                    {
-                        Destroy(equipmentSlots[3].currentItem);
-                    }
+                    Destroy(equipmentSlots[2].currentItem);
+                    equipmentSlots[2].item = null;
+                    
                 }
                 break;
             #endregion
@@ -531,7 +547,7 @@ public class LinearInventory : MonoBehaviour
                 #region Food
                 case ItemType.Food:
 
-
+                    Debug.Log("Food");
                     objectInfo.SetActive(true);
                     itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
                     itemName.text = selectedItem.Name + " x" + selectedItem.Amount;
@@ -707,5 +723,20 @@ public class LinearInventory : MonoBehaviour
     public void SortInventory(string sortingType)
     {
         sortType = sortingType;
+    }
+    public void AddItem(Item item)
+    {
+        Item foundItem = inv.Find(invItem => invItem.Name == invItem.Name);
+
+        if(inv.Exists(x => x.Name == item.Name))
+        {
+            foundItem.Amount++;
+        }
+        else
+        {
+
+            Item newItem = new Item(item, 1);
+            inv.Add(item);
+        }
     }
 }

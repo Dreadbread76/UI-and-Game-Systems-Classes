@@ -146,23 +146,27 @@ public class Customisation : Statistics
 
         #endregion
         #region Class
-        classDropdown.ClearOptions();
-        List<string> options = new List<string>();
-
-        int currentClassIndex = 0;
-        //loop through and create option for the list
-        for (int i = 0; i < selectedClass.Length; i++)
+        if (classDropdown != null)
         {
-            
-            classButton = selectedClass[i];
-            string option = classButton;
-            options.Add(option);
+            classDropdown.ClearOptions();
+            List<string> options = new List<string>();
+
+            int currentClassIndex = 0;
+            //loop through and create option for the list
+            for (int i = 0; i < selectedClass.Length; i++)
+            {
+
+                classButton = selectedClass[i];
+                string option = classButton;
+                options.Add(option);
 
 
+            }
+            classDropdown.RefreshShownValue();
+            classDropdown.AddOptions(options);
+            classDropdown.value = currentClassIndex;
         }
-        classDropdown.RefreshShownValue();
-        classDropdown.AddOptions(options);
-        classDropdown.value = currentClassIndex;
+        
         
 
         #endregion
@@ -172,13 +176,16 @@ public class Customisation : Statistics
     #endregion
     public void Update()
     {
-        
+
         #region Stats
-        pointsLeft.text = "Points: " + statPoints;
-        for (int i = 0; i < tempName.Length; i++)
+        if (pointsLeft != null)
         {
-            
-            statText[i].text = tempName[i] + ": " + charStats[i].value;
+            pointsLeft.text = "Points: " + statPoints;
+            for (int i = 0; i < tempName.Length; i++)
+            {
+
+                statText[i].text = tempName[i] + ": " + charStats[i].value;
+            }
         }
         #endregion
     }

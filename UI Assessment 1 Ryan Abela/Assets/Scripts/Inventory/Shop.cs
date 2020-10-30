@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Shop : MonoBehaviour
 {
-    public List<Item> shopInv = new List<Item>();
+    [SerializeField] public List<Item> shopInv = new List<Item>();
     public Item selectedItem;
-    public bool showShopInv;
+    [SerializeField] public bool showShopInv;
     public Vector2 scr;
     public ApprovalDialogue dlg;
+
+    private LinearInventory playerInventory;
     private void Start()
     {
+       playerInventory = (LinearInventory) FindObjectOfType<LinearInventory>();
         shopInv.Add(ItemData.CreateItem(Random.Range(0, 2)));
         shopInv.Add(ItemData.CreateItem(Random.Range(100, 102)));
     }
@@ -43,8 +46,14 @@ public class Shop : MonoBehaviour
                         //ADD TO PLAYER
                         LinearInventory.inv.Add(ItemData.CreateItem(selectedItem.ID));
                         //REMOVE FROM SHOP
-                        shopInv.Remove(selectedItem);
-                        selectedItem = null;
+                        
+                        selectedItem.Amount--;
+                        if (selectedItem.Amount <= 0)
+                        {
+                            shopInv.Remove(selectedItem);
+                            selectedItem = null;
+                        }
+                        
                         return;
                     }
                 }
@@ -62,6 +71,7 @@ public class Shop : MonoBehaviour
 
             }
             //DISPLAYS ITEMS IN PLAYER INVENTORY
+            
         }
         
     }

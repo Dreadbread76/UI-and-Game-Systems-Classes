@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ItemType
+{
+    Food,
+    Weapon,
+    Apparel,
+    Crafting,
+    Ingredients,
+    Potions,
+    Scrolls,
+    Quest,
+    Money
+}
 public class Item
 {
     #region Private Variables
@@ -11,7 +23,7 @@ public class Item
     private string _itemDescription;
     private int _value;
     private int _amount;
-    
+
     private Texture2D _icon;
     private GameObject _mesh;
     private ItemType _type;
@@ -19,7 +31,7 @@ public class Item
     private int _damage;
     private int _armour;
     #endregion
-    #region Private Properties
+    #region Public Properties
     public int ID
     {
         get { return _id; }
@@ -45,7 +57,7 @@ public class Item
         get { return _amount; }
         set { _amount = value; }
     }
-    
+
     public Texture2D Icon
     {
         get { return _icon; }
@@ -77,19 +89,30 @@ public class Item
         set { _armour = value; }
     }
     #endregion
+    public Item()
+    {
+
+    }
+    public Item(Item copyItem, int copyAmount)
+    {
+        _itemName = copyItem.Name;
+        _itemDescription = copyItem.ItemDescription;
+        _value = copyItem.Value;
+        _amount = copyAmount;
+        _icon = copyItem.Icon;
+        _mesh = copyItem.Mesh;
+        _type = copyItem.Type;
+        _heal = copyItem.Heal;
+        _damage = copyItem.Damage;
+        _armour = copyItem.Armour;
+
+
+
+
+    }
+        
 
 
 }
-public enum ItemType
-{
-    Food,
-    Weapon,
-    Apparel,
-    Crafting,
-    Ingredients,
-    Potions,
-    Scrolls,
-    Quest,
-    Money
-}
+
 
