@@ -12,10 +12,10 @@ public class PauseMenu : MonoBehaviour
     public GameObject optionsPanel;
     public LinearInventory inventory;
 
-    
+
     [SerializeField]
     public GameObject player;
-    
+
 
 
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public class PauseMenu : MonoBehaviour
         }
         else
         {
-            if (!LinearInventory.showInv)
+           if (!LinearInventory.showInv)
             {
                 Time.timeScale = 1;
             }
@@ -62,7 +62,7 @@ public class PauseMenu : MonoBehaviour
             pausePanel.SetActive(false);
         }
     }
-    
-    
-    
+
+
+
 }

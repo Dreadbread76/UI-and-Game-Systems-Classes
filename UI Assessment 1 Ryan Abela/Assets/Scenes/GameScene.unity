@@ -2045,6 +2045,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
 --- !u!1 &220930308
@@ -2219,6 +2224,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Apple
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
@@ -2727,6 +2737,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Apple (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
@@ -4836,6 +4851,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Apple (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
@@ -7597,6 +7617,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
 --- !u!1 &855875411
@@ -9567,6 +9592,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
 --- !u!1 &1081072404
@@ -9802,7 +9832,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1711495565}
-        m_MethodName: LoadPlayer
+        m_MethodName: WaitAndLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10237,6 +10267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Apple (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
 --- !u!1 &1163580762
@@ -10385,6 +10420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Apple (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770698802125921891, guid: dc60e3035bdb72f449d0d1b09534324b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc60e3035bdb72f449d0d1b09534324b, type: 3}
@@ -17666,37 +17706,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960208316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbeedea45cd819448772d36740b58a9, type: 3}
+  m_Script: {fileID: 11500000, guid: 0df5a7250367fd2409ffaa3f67dafebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quest:
-    questState: 0
-    title: 
-    description: 
-    condition1: 
-    condition2: 
-    condition3: 
-    expReward: 0
-    goldReward: 0
-    goal:
-      questState: 0
-      goalType: 0
-      enemyType: 
-      itemId: 0
-      requiredAmount: 0
-      currentAmount: 0
-      isReached: 0
-  player: {fileID: 1711495565}
-  inventory: {fileID: 1711495570}
-  questWindow: {fileID: 250854360}
-  titleText: {fileID: 363414332}
-  descriptionText: {fileID: 784897582}
-  experienceText: {fileID: 1757586286}
-  goldText: {fileID: 352774619}
-  condition1Text: {fileID: 31108414}
-  condition2Text: {fileID: 0}
-  condition3Text: {fileID: 0}
-  statusText: {fileID: 0}
+  showDialogue: 0
+  currentLineIndex: 0
+  playerScript: {fileID: 1711495563}
+  scr: {x: 0, y: 0}
+  playerMouseLook: {fileID: 1281986321}
+  name: Craig
+  dialogueText:
+  - Hi, Im greg
+  - Im an alcoholic trying to get sober
+  - I've been sober for 3 hours now
+  - It's my personal best
+  - Thanks for coming to my TED talk
+  speechText: {fileID: 0}
+  nameText: {fileID: 0}
+  continueText: {fileID: 0}
+  dialogueBox: {fileID: 0}
 --- !u!1 &1962698713
 GameObject:
   m_ObjectHideFlags: 0
@@ -19620,6 +19648,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC
       objectReference: {fileID: 0}
+    - target: {fileID: 549288996744385382, guid: 060aceedf92225a49bbc76e61463e5ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 060aceedf92225a49bbc76e61463e5ea, type: 3}
 --- !u!1001 &8669654827410919898
@@ -19633,6 +19666,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669654827415973464, guid: 289588efdc717774a957ab2a7c05cb15,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8669654827415973468, guid: 289588efdc717774a957ab2a7c05cb15,
         type: 3}

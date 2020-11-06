@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -314,7 +314,7 @@ RectTransform:
   - {fileID: 390547196}
   - {fileID: 414519333}
   m_Father: {fileID: 1976484248}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1088,7 +1088,7 @@ RectTransform:
   - {fileID: 2065320386}
   - {fileID: 374518772}
   m_Father: {fileID: 1976484248}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1874,7 +1874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &392449456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1891,7 +1891,7 @@ RectTransform:
   - {fileID: 1805555741}
   - {fileID: 851819310}
   m_Father: {fileID: 1976484248}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4997,16 +4997,38 @@ MonoBehaviour:
   currentExp: 0
   neededExp: 0
   maxExp: 0
+  quest:
+    questState: 0
+    title: 
+    description: 
+    condition1: 
+    condition2: 
+    condition3: 
+    expReward: 0
+    goldReward: 0
+    goal:
+      questState: 0
+      goalType: 0
+      enemyType: 
+      itemId: 0
+      requiredAmount: 0
+      currentAmount: 0
+      isReached: 0
   damageImage: {fileID: 0}
   deathImage: {fileID: 0}
   deathText: {fileID: 0}
+  reviveText: {fileID: 0}
   deathClip: {fileID: 0}
   playersAudio: {fileID: 0}
   deathMessages: []
   reviveMessages: []
+  currentCheckpoint: {fileID: 0}
   flashSpeed: 5
   flashColour: {r: 1, g: 0, b: 0, a: 0.2}
+  transparent: {r: 0, g: 0, b: 0, a: 0}
+  deathTextColor: {r: 255, g: 0, b: 0, a: 1}
   damaged: 0
+  savedPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1014872894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5535,9 +5557,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194232}
-        m_MethodName: LoadLevel
-        m_Mode: 3
+      - m_Target: {fileID: 963194235}
+        m_MethodName: LoadPlayer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8567,10 +8589,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 2141408371}
   - {fileID: 271244658}
   - {fileID: 33496824}
   - {fileID: 392449456}
+  - {fileID: 2141408371}
   - {fileID: 507516956}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -9352,7 +9374,7 @@ RectTransform:
   - {fileID: 688898144}
   - {fileID: 2056917897}
   m_Father: {fileID: 1976484248}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

@@ -63,9 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ApprovalDialogue.cs" />
     <Compile Include="Assets\Scripts\BaseStats.cs" />
-    <Compile Include="Assets\Scripts\CanvasDialogue.cs" />
     <Compile Include="Assets\Scripts\CanvasFaceCamera.cs" />
     <Compile Include="Assets\Scripts\Character\Character.cs" />
     <Compile Include="Assets\Scripts\Character\Customisation.cs" />
@@ -73,7 +71,9 @@
     <Compile Include="Assets\Scripts\Character\Life.cs" />
     <Compile Include="Assets\Scripts\Character\Stats.cs" />
     <Compile Include="Assets\Scripts\Compass.cs" />
-    <Compile Include="Assets\Scripts\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\ApprovalDialogue.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\CanvasDialogue.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\Dialogue.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\GradientHealth.cs" />
     <Compile Include="Assets\Scripts\Interact.cs" />
@@ -91,6 +91,8 @@
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\PLAYER.cs" />
     <Compile Include="Assets\Scripts\PlayerSettings.cs" />
+    <Compile Include="Assets\Scripts\Pooling\PoolManager.cs" />
+    <Compile Include="Assets\Scripts\Pooling\spawnTest.cs" />
     <Compile Include="Assets\Scripts\PressAnyKey.cs" />
     <Compile Include="Assets\Scripts\Quest\Quest.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestGiver.cs" />

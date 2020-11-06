@@ -83,7 +83,7 @@ public class LinearInventory : MonoBehaviour
                 {
                     Time.timeScale = 0;
                     Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
+                   Cursor.visible = true;
                     inventoryScreen.SetActive(true);
                     return;
                 }
@@ -127,7 +127,7 @@ public class LinearInventory : MonoBehaviour
             {
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+               Cursor.visible = false;
                 currentChest.showChestInv = false;
                 currentChest = null;
                 inventoryScreen.SetActive(false);

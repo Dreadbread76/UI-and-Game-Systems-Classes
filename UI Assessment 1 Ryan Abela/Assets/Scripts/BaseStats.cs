@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Stats
 {
@@ -64,11 +65,17 @@ namespace Stats
         // Start is called before the first frame update
         void Start()
         {
-            deathText.color = transparent;
-            reviveText.color = transparent;
+            if(deathText != null)
+            {
+                deathText.color = transparent;
+            }
+            if (reviveText != null)
+            {
+                reviveText.color = transparent;
+            }
+            
             damaged = false;
             isDead = false;
-            LoadPlayer();
             msgIndex = Random.Range(0, 4);
         }
 
@@ -85,9 +92,10 @@ namespace Stats
                 characterStatus[0].currentValue -= 25;
             }
 #endif
-           
+          
             for (int i = 0; i < characterStatus.Length; i++)
             {
+
                 characterStatus[i].displayImage.fillAmount = Mathf.Clamp01(characterStatus[i].currentValue / characterStatus[i].maxValue);
             }
             if (damaged == true && !isDead)
@@ -149,11 +157,30 @@ namespace Stats
         #region Save and Load
         public void SavePlayer()
         {
-            Save.SavePlayer(this);
+            PlayerBinary.SavePlayer(this);
         }
-        public void LoadPlayer()
+
+        public void WaitAndLoad()
         {
-            PlayerData data = Save.LoadPlayer();
+            StartCoroutine(Wait1FrameAndLoad());
+        }
+
+        private IEnumerator Wait1FrameAndLoad()
+        {
+            Time.timeScale = 1;
+            yield return null;
+            LoadPlayerOld();
+            yield return null;
+            Time.timeScale = 0;
+        }
+        public void LoadPlayerOld()
+        {
+            PlayerData data = PlayerBinary.LoadPlayer();
+
+            if(data == null)
+            {
+                return;
+            }
 
             level = data.savedLevel;
             characterStatus[0].currentValue = data.savedHealth;
@@ -167,10 +194,44 @@ namespace Stats
             position.z = data.savedPlayerPos[2];
 
             transform.position = position;
-            Debug.Log("Saved");
+            Debug.Log("Loaded");
             savedPosition = position;
 
+            
+        }
+        public void LoadPlayer()
+        {
 
+            //Load Scene
+            SceneManager.LoadScene(2);
+
+            //Load Player Position and Stats
+            PlayerData data = PlayerBinary.LoadPlayer();
+
+            if (data == null)
+            {
+                return;
+            }
+
+            level = data.savedLevel;
+            characterStatus[0].currentValue = data.savedHealth;
+            name = data.savedName;
+            currentExp = data.savedExp;
+
+            //Saved Player Position
+
+            Vector3 position;
+            position.x = data.savedPlayerPos[0];
+            position.y = data.savedPlayerPos[1];
+            position.z = data.savedPlayerPos[2];
+
+            //Set saved player position as new
+
+            transform.position = position;
+            Debug.Log("Loaded");
+            savedPosition = position;
+
+            
         }
         #endregion
         #region  Quest

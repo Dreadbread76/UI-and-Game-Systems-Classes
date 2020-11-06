@@ -298,7 +298,8 @@ public class Customisation : Statistics
         }
         PlayerPrefs.SetString("CharacterClass", selectedClass[selectedIndex]);
 
-        SceneManager.LoadScene(2);
+        
+       
     }
     public void ResetOptions()
     {

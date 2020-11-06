@@ -19,8 +19,9 @@ public static class PlayerBinary
         formatter.Serialize(stream, data);
         //and we are done
         stream.Close();
+        Debug.Log("Saved");
     }
-    public static PlayerData LoadPlayer(Stats.BaseStats player)
+    public static PlayerData LoadPlayer()
     {
         //Location to Save
         string path = Application.dataPath + "/" + "playersave" + ".sav";

@@ -10,9 +10,10 @@ public class Dialogue : MonoBehaviour
     #region Variables
     [Header("References")]
     //boolean to toggle if we can see a characters dialogue box
-    public bool showDlg;
+    public bool showDialogue;
     //index for our current line of dialogue and an index for a set question marker of the dialogue 
-    public int index;
+    public int currentLineIndex;
+    public PLAYER playerScript;
     public Vector2 scr;
     //object reference to the player
     public MouseLook playerMouseLook;
@@ -39,23 +40,25 @@ public class Dialogue : MonoBehaviour
     private void OnGUI()//OnGUI
     {
         //if our dialogue can be seen on screen
-        if (showDlg)
+        if (showDialogue)
         {
+            playerScript.enabled = false;
+            playerMouseLook.enabled = false;
             dialogueBox.SetActive(true);
             nameText.text = name + ": ";
-            speechText.text = dialogueText[index];
+            speechText.text = dialogueText[currentLineIndex];
             //set up our ratio messurements for 16:9
             scr.x = Screen.width / 16;
             scr.y = Screen.height / 9;
             //the dialogue box takes up the whole bottom 3rd of the screen and displays the NPC's name and current dialogue line
-            GUI.Box(new Rect(0, 6 * scr.y, Screen.width, scr.y * 3), name + " : " + dialogueText[index]);
+            GUI.Box(new Rect(0, 6 * scr.y, Screen.width, scr.y * 3), name + " : " + dialogueText[currentLineIndex]);
             //if not at the end of the dialogue or not at the options part
-            if (!(index >= dialogueText.Length - 1))
+            if (currentLineIndex < dialogueText.Length - 1)
             {
                 //next button allows us to skip forward to the next line of dialogue
                 if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Next"))
                 {
-                    index++;
+                    currentLineIndex++;
                 }
             }
             //else if we are at options
@@ -68,14 +71,15 @@ public class Dialogue : MonoBehaviour
                 if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Bye"))
                 {
                     //close the dialogue box
-                    showDlg = false;
+                    showDialogue = false;
                     //set index back to 0 
-                    index = 0;
+                    currentLineIndex = 0;
                     //allow cameras mouselook to be turned back on
                     //get the component mouselook on the character and turn that back on
-                    Camera.main.GetComponent<MouseLook>().enabled = true;
+                    
                     //get the component movement on the character and turn that back on
                     playerMouseLook.enabled = true;
+                    playerScript.enabled = true;
 
                     //lock the mouse cursor
                     Cursor.lockState = CursorLockMode.Locked;
@@ -87,5 +91,9 @@ public class Dialogue : MonoBehaviour
 
         }
     }
+    #endregion
+
+    #region Canvas
+
     #endregion
 }

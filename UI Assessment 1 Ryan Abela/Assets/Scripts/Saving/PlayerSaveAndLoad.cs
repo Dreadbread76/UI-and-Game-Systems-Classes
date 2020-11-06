@@ -47,7 +47,7 @@ public class PlayerSaveAndLoad : MonoBehaviour
     public static void Load()
     {
         //Do this when Binary is done
-        PlayerData data = PlayerBinary.LoadPlayer(player);
+        PlayerData data = PlayerBinary.LoadPlayer();
         player.name = data.savedName;
         player.level = data.savedLevel;
         player.currentCheckpoint = GameObject.Find(data.savedCheckpoint).GetComponent<Transform>();
