@@ -14,7 +14,7 @@ public class ItemHandler : MonoBehaviour
         {
             LinearInventory.money += amount;
         }
-        else if (true)//WEAPON, APPAREL, QUEST
+        else if(true)//WEAPON, APPAREL, QUEST
         {
             LinearInventory.inv.Add(ItemData.CreateItem(itemId));
         }

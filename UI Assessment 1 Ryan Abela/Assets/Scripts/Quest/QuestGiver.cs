@@ -11,6 +11,8 @@ public class QuestGiver : MonoBehaviour
     public GameObject questWindow;
 
     public Text titleText, descriptionText, experienceText, goldText, condition1Text, condition2Text, condition3Text, statusText;
+
+    /*
     public void Update()
     {
         if (quest.goal.IsReached() == true && (quest.questState != QuestState.Complete || quest.questState != QuestState.Claimed))
@@ -18,6 +20,7 @@ public class QuestGiver : MonoBehaviour
             quest.Complete();
         }
     }
+    */
     public void OpenQuestWindow()
     {
         questWindow.SetActive(true);

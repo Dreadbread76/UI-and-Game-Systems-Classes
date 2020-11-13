@@ -5,23 +5,29 @@ using UnityEngine;
 [System.Serializable]
 public class Quest
 {
-    // Start is called before the first frame update
+    #region Variables
+
+    public Stats.BaseStats player;
+
     public QuestState questState;
     public string title;
     public string description;
     public string condition1, condition2, condition3;
+
+    
     public int expReward;
     public int goldReward;
+
+    public int reqLevel;
+
     public QuestGoal goal;
-    public void Complete()
-    {
-        questState = QuestState.Complete;
-        
-    }
-    public void Claimed()
-    {
-        questState = QuestState.Claimed;
-    }
+
+    public Quest quest;
+
+
+    #endregion
+ 
+  
    
 }
 

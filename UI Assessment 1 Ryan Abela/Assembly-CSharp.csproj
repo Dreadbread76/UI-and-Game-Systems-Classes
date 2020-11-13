@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Dialogue\ApprovalDialogue.cs" />
     <Compile Include="Assets\Scripts\Dialogue\CanvasDialogue.cs" />
     <Compile Include="Assets\Scripts\Dialogue\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\DialogueNPC.cs" />
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\GradientHealth.cs" />
     <Compile Include="Assets\Scripts\Interact.cs" />
@@ -94,9 +95,14 @@
     <Compile Include="Assets\Scripts\Pooling\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Pooling\spawnTest.cs" />
     <Compile Include="Assets\Scripts\PressAnyKey.cs" />
+    <Compile Include="Assets\Scripts\Quest\GatherQuestGoal.cs" />
+    <Compile Include="Assets\Scripts\Quest\NPC.cs" />
     <Compile Include="Assets\Scripts\Quest\Quest.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestDialogue.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestGiver.cs" />
     <Compile Include="Assets\Scripts\Quest\QuestGoal.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestManager.cs" />
+    <Compile Include="Assets\Scripts\Quest\QuestNPC.cs" />
     <Compile Include="Assets\Scripts\Saving\PlayerBinary.cs" />
     <Compile Include="Assets\Scripts\Saving\PlayerData.cs" />
     <Compile Include="Assets\Scripts\Saving\PlayerSaveAndLoad.cs" />

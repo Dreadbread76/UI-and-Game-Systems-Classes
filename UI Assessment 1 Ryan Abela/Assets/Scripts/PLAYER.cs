@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class PLAYER : MonoBehaviour
 {
+
+    public Stats.BaseStats baseStats;
     // Start is called before the first frame update
 
     [Header("Physics")]
@@ -126,6 +128,42 @@ public class PLAYER : MonoBehaviour
             speed = crouchSpeed;
         }
        
+    }
+    void Interact()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ray ray;
+
+            RaycastHit hitInfo;
+            ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+
+            int layerMask = LayerMask.NameToLayer("Interactable");
+
+            if(Physics.Raycast(ray, out hitInfo, 5f, layerMask))
+            {
+                #region NPC
+                if (hitInfo.collider.TryGetComponent<NPC>(out NPC npc))
+                {
+                    npc.Interact();
+                }
+                #endregion
+                #region Item
+                if (hitInfo.collider.CompareTag("Item"))
+                {
+                    Debug.Log("Pick Up Item");
+                    ItemHandler handler = hitInfo.transform.GetComponent<ItemHandler>();
+                    if (handler != null)
+                    {
+                        baseStats.quest.goal.ItemCollected(handler.itemId);
+                        handler.OnCollection();
+                    }
+                }
+                #endregion
+            }
+      
+
+        }
     }
     
 }

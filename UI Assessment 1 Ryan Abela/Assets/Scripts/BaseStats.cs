@@ -235,14 +235,14 @@ namespace Stats
         }
         #endregion
         #region  Quest
-        public void KilledCreature(string enemyTag)
+       /* public void KilledCreature(string enemyTag)
         {
             if (quest.questState == QuestState.Active)
             {
                 quest.goal.EnemyKilled(enemyTag);
                 
             }
-        }
+        } */
         public void IemCreature(int id)
         {
             if (quest.questState == QuestState.Active)
@@ -251,6 +251,7 @@ namespace Stats
                
             }
         }
+       
         #endregion
     }
 }

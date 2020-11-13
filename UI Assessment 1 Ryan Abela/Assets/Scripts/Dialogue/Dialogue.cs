@@ -18,6 +18,7 @@ public class Dialogue : MonoBehaviour
     //object reference to the player
     public MouseLook playerMouseLook;
     //mouselook script reference for the maincamera
+    public Quest quest;
     [Header("NPC Name and Dialogue")]
     //name of this specific NPC
     public new string name;
@@ -92,7 +93,27 @@ public class Dialogue : MonoBehaviour
         }
     }
     #endregion
+    protected virtual void EndDialogue()
+    {
+        if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Bye"))
+        {
+            //close the dialogue box
+            showDialogue = false;
+            //set index back to 0 
+            currentLineIndex = 0;
+            //allow cameras mouselook to be turned back on
+            //get the component mouselook on the character and turn that back on
 
+            //get the component movement on the character and turn that back on
+            playerMouseLook.enabled = true;
+            playerScript.enabled = true;
+
+            //lock the mouse cursor
+            Cursor.lockState = CursorLockMode.Locked;
+            //set the cursor to being invisible       
+            Cursor.visible = false;
+        }
+    }
     #region Canvas
 
     #endregion

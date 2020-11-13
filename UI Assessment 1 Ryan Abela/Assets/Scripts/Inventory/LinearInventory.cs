@@ -739,4 +739,10 @@ public class LinearInventory : MonoBehaviour
             inv.Add(item);
         }
     }
+    public Item FindItem(string itemName)
+    {
+        Item foundItem = inv.Find(findItem => findItem.Name == itemName);
+
+        return foundItem;
+    }
 }
