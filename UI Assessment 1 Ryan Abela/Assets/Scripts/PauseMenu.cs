@@ -41,21 +41,24 @@ public class PauseMenu : MonoBehaviour
     }
     public void PauseMenuActive()
     {
+        
         isPaused = !isPaused;
         Debug.Log(isPaused);
         if (isPaused)
         {
+
             Time.timeScale = 0;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             pausePanel.SetActive(true);
+            
         }
         else
         {
            if (!LinearInventory.showInv)
-            {
+           {
                 Time.timeScale = 1;
-            }
+           }
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

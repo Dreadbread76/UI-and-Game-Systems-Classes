@@ -1176,7 +1176,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1711495570}
-        m_MethodName: SortInventory
+        m_MethodName: Display
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2797,7 +2797,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.00008325049}
+  m_AnchoredPosition: {x: 0, y: -0.0001584355}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &324298164
@@ -3778,7 +3778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a8f942d9c3301054f8d355f6f3e09f4d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9229,7 +9229,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1363231882}
   m_HandleRect: {fileID: 1363231881}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -12236,22 +12236,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1711495563}
   inventory: {fileID: 1711495570}
-  currentQuest:
-    questState: 0
-    title: 
-    description: 
-    condition1: 
-    condition2: 
-    condition3: 
-    expReward: 0
-    goldReward: 0
-    reqLevel: 0
-    goal:
-      questState: 0
-      goalType: 0
-      itemId: 0
-      requiredAmount: 0
-      currentAmount: 0
 --- !u!1 &1479953591
 GameObject:
   m_ObjectHideFlags: 0
@@ -13206,6 +13190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quest:
+    player: {fileID: 0}
     questState: 0
     title: An Apple A Day
     description: Terry wants apples
@@ -13215,12 +13200,7 @@ MonoBehaviour:
     expReward: 20
     goldReward: 10
     reqLevel: 0
-    goal:
-      questState: 0
-      goalType: 1
-      itemId: 0
-      requiredAmount: 8
-      currentAmount: 0
+    goal: {fileID: 0}
   player: {fileID: 1711495565}
   inventory: {fileID: 1711495570}
   questWindow: {fileID: 915504147}
@@ -13244,6 +13224,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2d266484312c4d4dbba9c54b1c85778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  name: 
+  NPCsQuest:
+    player: {fileID: 0}
+    questState: 0
+    title: 
+    description: 
+    condition1: 
+    condition2: 
+    condition3: 
+    expReward: 0
+    goldReward: 0
+    reqLevel: 0
+    goal: {fileID: 0}
+  dialogue: {fileID: 0}
+  dialogueText: []
 --- !u!1 &1551141583
 GameObject:
   m_ObjectHideFlags: 0
@@ -13400,7 +13395,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1711495570}
-        m_MethodName: SortInventory
+        m_MethodName: Display
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14980,6 +14975,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaac77dac278ea4d86d9ce6fb4a737e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseStats: {fileID: 0}
   controller: {fileID: 0}
   gravity: -20
   speed: 5
@@ -15063,6 +15059,7 @@ MonoBehaviour:
   neededExp: 0
   maxExp: 0
   quest:
+    player: {fileID: 0}
     questState: 0
     title: 
     description: 
@@ -15072,12 +15069,7 @@ MonoBehaviour:
     expReward: 0
     goldReward: 0
     reqLevel: 0
-    goal:
-      questState: 0
-      goalType: 0
-      itemId: 0
-      requiredAmount: 0
-      currentAmount: 0
+    goal: {fileID: 0}
   damageImage: {fileID: 1677760234}
   deathImage: {fileID: 1148213343}
   deathText: {fileID: 434434123}
@@ -15322,6 +15314,7 @@ MonoBehaviour:
   type: 0
   itemHealDmgArm: {fileID: 1297972814}
   itemUsage: {fileID: 841105526}
+  itemUseButton: {fileID: 2081782499}
   inventoryContent: {fileID: 79981991548583358, guid: 6c90d9f58eab5a248bb2feb8c594c814,
     type: 3}
   inventoryScreen: {fileID: 1511804403}
@@ -19151,8 +19144,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 696361116}
   m_HandleRect: {fileID: 696361115}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

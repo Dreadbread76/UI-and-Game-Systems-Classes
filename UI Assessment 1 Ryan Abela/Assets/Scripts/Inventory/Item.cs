@@ -15,6 +15,8 @@ public enum ItemType
     Quest,
     Money
 }
+
+
 public class Item
 {
     #region Private Variables

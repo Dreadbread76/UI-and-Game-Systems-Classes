@@ -29,7 +29,7 @@ public class LinearInventory : MonoBehaviour
    [SerializeField] public Text itemHealDmgArm;
     public Text itemUsage;
     #endregion
-
+    public Button itemUseButton;
     public Button inventoryContent;
     public GameObject inventoryScreen;
     public GameObject objectInfo;
@@ -59,13 +59,13 @@ public class LinearInventory : MonoBehaviour
         
         player = this.gameObject.GetComponent<Stats.BaseStats>();
         enumTypesForItems = new string[] { "All", "Food", "Weapon", "Apparel", "Crafting", "Ingredients", "Potions", "Scrolls", "Quest" };
-        inv.Add(ItemData.CreateItem(0));
-        inv.Add(ItemData.CreateItem(1));
-        inv.Add(ItemData.CreateItem(300));
+        AddItem(ItemData.CreateItem(0));
+        AddItem(ItemData.CreateItem(1));
+        AddItem(ItemData.CreateItem(300));
         objectInfo.SetActive(false);
         inventoryScreen.SetActive(false);
         showInv = false;
-        Display();
+       // Display();
     }
 
     // Update is called once per frame
@@ -74,16 +74,18 @@ public class LinearInventory : MonoBehaviour
         
         scr.x = Screen.width / 16;
         scr.y = Screen.height / 9;
-        if (currentShop == null)
+       
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (currentShop == null)
             {
-                showInv = !showInv;
+               showInv = !showInv;
+
                 if (showInv)
                 {
                     Time.timeScale = 0;
                     Cursor.lockState = CursorLockMode.None;
-                   Cursor.visible = true;
+                    Cursor.visible = true;
                     inventoryScreen.SetActive(true);
                     return;
                 }
@@ -92,13 +94,17 @@ public class LinearInventory : MonoBehaviour
                     Time.timeScale = 1;
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    currentChest.showChestInv = false;
+                    //currentChest.showChestInv = false;
                     currentChest = null;
                     inventoryScreen.SetActive(false);
                     return;
                 }
             }
+            
+
         }
+            
+     
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             
@@ -127,7 +133,7 @@ public class LinearInventory : MonoBehaviour
             {
                 Time.timeScale = 1;
                 Cursor.lockState = CursorLockMode.Locked;
-               Cursor.visible = false;
+                Cursor.visible = false;
                 currentChest.showChestInv = false;
                 currentChest = null;
                 inventoryScreen.SetActive(false);
@@ -149,10 +155,9 @@ public class LinearInventory : MonoBehaviour
 #if UNITY_EDITOR
         if (Input.GetKey(KeyCode.I))
         {
-            inv.Add(ItemData.CreateItem(Random.Range(0, 1)));
-                inv.Add(ItemData.CreateItem(Random.Range(100, 102)));
-                inv.Add(ItemData.CreateItem(Random.Range(200, 203)));
-            Display();
+            AddItem(ItemData.CreateItem(Random.Range(0, 1)));
+            AddItem(ItemData.CreateItem(Random.Range(200, 202)));
+
         }
         if (Input.GetKey(KeyCode.N))
         {
@@ -165,31 +170,16 @@ public class LinearInventory : MonoBehaviour
         
 #endif
     }
-    void Display()
+    public void Display(string sortingType)
     {
-        if(sortType == "All"  || sortType == "")
+        sortType = sortingType;
+        //SORTING
+        if (sortType == "All"  || sortType == "")
         {
 
             if (inv.Count <= 34)
             {
-                for (int i = 0; i < inv.Count; i++)
-                {
-                    
-                    
-                    Text invItemName = inventoryContent.GetComponentInChildren<Text>();
-                    invItemName.text = inv[i].Name;
-                    Button carolus = Instantiate(inventoryContent, content);
-                    
-                    invButton.Add(inventoryContent);
-                    carolus.onClick.AddListener(ShowProperties);
-                    
-                    
-                    
-                   
-
-
-                    
-                }
+               
                 
             }
             else
@@ -245,32 +235,14 @@ public class LinearInventory : MonoBehaviour
         }
         
     }
-    private void OnGUI()
-    {
-        if (showInv)
-        {
-            GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
-            for (int i = 0; i < enumTypesForItems.Length; i++)
-            {
-                if(GUI.Button(new Rect(4f*scr.x + i * scr.x, 0, scr.x, 0.25f * scr.y), enumTypesForItems[i]))
-                {
-                    sortType = enumTypesForItems[i];
-                }
-            }
-            
-            if(selectedItem != null)
-            {
-                UseItem();
-            }
-        }
-    }
-
+   
+    #region Chest
     void UseItem()
     {
         
         if (currentChest != null)
         {
-            if (GUI.Button(new Rect(8.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Move Item"))
+           
                 for (int i = 0; i < equipmentSlots.Length; i++)
                 {
                     if (equipmentSlots[i].currentItem != null && selectedItem.Name == equipmentSlots[i].currentItem.name)
@@ -504,30 +476,44 @@ public class LinearInventory : MonoBehaviour
         }
 
     }
+    #endregion
     public void Discard()
     {
-        if(selectedItem.Amount > 0)
-        {
-            selectedItem.Amount--;
-            
-        }
-    }
-    public void ShowProperties()
-    {
+        selectedItem.Amount--;
         
+        if (selectedItem.Mesh != null)
+        {
+            Instantiate(selectedItem.Mesh, null).transform.position = dropLocation.transform.position ;
+        }
+        
+
+        if (selectedItem.Amount <= 0)
+        {
+            inv.Remove(selectedItem);
+
+        }
+
+    }
+    public void ShowProperties(Item itemSelected)
+    {
+        selectedItem = itemSelected;
         Debug.Log("Inventory Clicked");
         objectInfo.SetActive(true);
         if(selectedItem != null)
         {
             if (currentChest != null)
             {
+                Text invItemName = inventoryContent.GetComponentInChildren<Text>();
+                
 
                 for (int i = 0; i < equipmentSlots.Length; i++)
                 {
+                    /*
                     if (equipmentSlots[i].currentItem != null && selectedItem.Name == equipmentSlots[i].currentItem.name)
                     {
                         Destroy(equipmentSlots[i].currentItem);
                     }
+                    */
                 }
                 currentChest.chestInv.Add(selectedItem);
                 if (selectedItem.Amount > 1)
@@ -557,22 +543,10 @@ public class LinearInventory : MonoBehaviour
                     itemUsage.text = "Eat";
 
 
+
                     if (player.characterStatus[0].currentValue < player.characterStatus[0].maxValue)
                     {
-                        if (GUI.Button(new Rect(10.25f * scr.x, 6.75f * scr.y, scr.x, 0.25f * scr.y), "Eat"))
-                        {
-                            player.characterStatus[0].currentValue += selectedItem.Heal;
-                            if (selectedItem.Amount > 1)
-                            {
-                                selectedItem.Amount--;
-                            }
-                            else
-                            {
-                                inv.Remove(selectedItem);
-                                selectedItem = null;
-                                return;
-                            }
-                        }
+                        itemUseButton.onClick.AddListener(Eat);
                     }
 
 
@@ -615,7 +589,7 @@ public class LinearInventory : MonoBehaviour
                 #endregion
                 #region Apparel
                 case ItemType.Apparel:
-                    GUI.Box(new Rect(8.25f * scr.x, 4f * scr.y, 3 * scr.x, 3 * scr.y), selectedItem.ItemDescription + "\nValue: " + selectedItem.Value + "\nAmount: " + selectedItem.Amount);
+                    
 
                     objectInfo.SetActive(true);
                     itemImage.sprite = Sprite.Create(selectedItem.Icon, new Rect(0, 0, selectedItem.Icon.width, selectedItem.Icon.height), Vector2.zero);
@@ -720,12 +694,30 @@ public class LinearInventory : MonoBehaviour
         
         
     }
+    public void Eat() 
+    {
+        player.characterStatus[0].currentValue += selectedItem.Heal;
+        if (selectedItem.Amount > 1)
+        {
+            selectedItem.Amount--;
+        }
+        else
+        {
+            selectedItem.Amount--;
+            inv.Remove(selectedItem);
+            selectedItem = null;
+            return;
+        }
+    }
+
+
     public void SortInventory(string sortingType)
     {
         sortType = sortingType;
     }
     public void AddItem(Item item)
     {
+        //FINDS ITEM IN GAME
         Item foundItem = inv.Find(invItem => invItem.Name == invItem.Name);
 
         if(inv.Exists(x => x.Name == item.Name))
@@ -734,9 +726,18 @@ public class LinearInventory : MonoBehaviour
         }
         else
         {
-
+            //ADDS ITEM
             Item newItem = new Item(item, 1);
-            inv.Add(item);
+            inv.Add(newItem);
+
+            Text invItemName = inventoryContent.GetComponentInChildren<Text>();
+            invItemName.text = newItem.Name;
+
+            //ADDS BUTTON FOR ITEM
+            Button displayButton = Instantiate(inventoryContent, content);
+            invButton.Add(inventoryContent);
+            displayButton.onClick.AddListener(delegate { ShowProperties(newItem); });
+
         }
     }
     public Item FindItem(string itemName)
