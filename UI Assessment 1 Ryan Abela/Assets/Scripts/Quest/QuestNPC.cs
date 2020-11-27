@@ -33,7 +33,7 @@ public class QuestNPC : NPC
         {
             case QuestState.Available:
                 questManager.AcceptQuest(NPCsQuest);
-                dialogue.dialogueText = dialogueText;
+                dialogue.currentDialogue = dialogueText;
                 dialogue.quest = NPCsQuest;
                 dialogue.showDialogue = true;
                 break;

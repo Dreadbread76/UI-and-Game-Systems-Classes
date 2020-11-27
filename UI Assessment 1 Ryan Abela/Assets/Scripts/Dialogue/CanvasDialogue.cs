@@ -11,36 +11,44 @@ public class CanvasDialogue : MonoBehaviour
     public Text charNPCName;
 
     public string[] currentDialogue;
-    public int index;
+    public int dialogueIndex;
     public MouseLook playerMouseLook;
-    
 
+    public void OpenDialogue()
+    {
+        dialoguePanel.gameObject.SetActive(true);
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
+    }
    
 
-    private void OnGUI()
-    {
-
-
-    }
+   
     public void DialogueScroll()
     {
-        if (!(index >= currentDialogue.Length - 1))
+        
+
+
+        if (!(dialogueIndex >= currentDialogue.Length - 1))
         {
-            index++;
-            if(index >= currentDialogue.Length - 1)
+            dialogueIndex++;
+            if(dialogueIndex >= currentDialogue.Length - 1)
             {
                 buttonText.text = "Bye.";
             }
         }
         else
         {
-            index = 0;
-            Camera.main.GetComponent<MouseLook>().enabled = true;
-            playerMouseLook.enabled = true;
+            Time.timeScale = 0;
+            dialogueIndex = 0;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             dialoguePanel.SetActive(false);
+            
         }
-        dialogueText.text = charNPCName + ": " + currentDialogue[index];
+        dialogueText.text = charNPCName + ": " + currentDialogue[dialogueIndex];
     }
+
+
 }

@@ -22,99 +22,30 @@ public class Dialogue : MonoBehaviour
     [Header("NPC Name and Dialogue")]
     //name of this specific NPC
     public new string name;
+    public enum NPCType
+    {
+        Quest,
+        Shop,
+        Villager,
+    }
+    public NPCType npcType;
     //array for text for our dialogue
-    public string[] dialogueText;
+    public string[] currentDialogue;
+    public string[] posDialogue, neuDialogue, negDialogue;
     public Text speechText;
     public Text nameText;
     public Text continueText;
     public GameObject dialogueBox;
+
+   
     #endregion
     #region Start
    private void Start()
-    {
+   {
         playerMouseLook = GameObject.FindGameObjectWithTag("Player").GetComponent<MouseLook>();
         
-    }
+   }
     #endregion
 
-    #region OnGUI
-    private void OnGUI()//OnGUI
-    {
-        //if our dialogue can be seen on screen
-        if (showDialogue)
-        {
-            playerScript.enabled = false;
-            playerMouseLook.enabled = false;
-            dialogueBox.SetActive(true);
-            nameText.text = name + ": ";
-            speechText.text = dialogueText[currentLineIndex];
-            //set up our ratio messurements for 16:9
-            scr.x = Screen.width / 16;
-            scr.y = Screen.height / 9;
-            //the dialogue box takes up the whole bottom 3rd of the screen and displays the NPC's name and current dialogue line
-            GUI.Box(new Rect(0, 6 * scr.y, Screen.width, scr.y * 3), name + " : " + dialogueText[currentLineIndex]);
-            //if not at the end of the dialogue or not at the options part
-            if (currentLineIndex < dialogueText.Length - 1)
-            {
-                //next button allows us to skip forward to the next line of dialogue
-                if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Next"))
-                {
-                    currentLineIndex++;
-                }
-            }
-            //else if we are at options
-            //Accept button allows us to skip forward to the next line of dialogue
-            //Decline button skips us to the end of the characters dialogue 
-            //else we are at the end
-            //the Bye button allows up to end our dialogue
-            else
-            {
-                if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Bye"))
-                {
-                    //close the dialogue box
-                    showDialogue = false;
-                    //set index back to 0 
-                    currentLineIndex = 0;
-                    //allow cameras mouselook to be turned back on
-                    //get the component mouselook on the character and turn that back on
-                    
-                    //get the component movement on the character and turn that back on
-                    playerMouseLook.enabled = true;
-                    playerScript.enabled = true;
-
-                    //lock the mouse cursor
-                    Cursor.lockState = CursorLockMode.Locked;
-                    //set the cursor to being invisible       
-                    Cursor.visible = false;
-                }
-
-            }
-
-        }
-    }
-    #endregion
-    protected virtual void EndDialogue()
-    {
-        if (GUI.Button(new Rect(15 * scr.x, 8.5f * scr.y, scr.x, scr.y * 0.5f), "Bye"))
-        {
-            //close the dialogue box
-            showDialogue = false;
-            //set index back to 0 
-            currentLineIndex = 0;
-            //allow cameras mouselook to be turned back on
-            //get the component mouselook on the character and turn that back on
-
-            //get the component movement on the character and turn that back on
-            playerMouseLook.enabled = true;
-            playerScript.enabled = true;
-
-            //lock the mouse cursor
-            Cursor.lockState = CursorLockMode.Locked;
-            //set the cursor to being invisible       
-            Cursor.visible = false;
-        }
-    }
-    #region Canvas
-
-    #endregion
+  
 }
