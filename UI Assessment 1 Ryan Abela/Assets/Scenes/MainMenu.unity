@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -96,6 +96,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1113,8 +1114,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c9302a9288ac2ce4ca8f5b50f3290773, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1916,8 +1917,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c9302a9288ac2ce4ca8f5b50f3290773, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2850,8 +2851,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c9302a9288ac2ce4ca8f5b50f3290773, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -3516,6 +3517,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 963194235}
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 04859f46924be724f98c31e4d4c4b8d1,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &688898146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3589,8 +3602,9 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_Enabled: 1
-  serializedVersion: 9
+  serializedVersion: 10
   m_Type: 1
+  m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
   m_Intensity: 1
   m_Range: 10
@@ -4539,6 +4553,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 963194235}
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 04859f46924be724f98c31e4d4c4b8d1,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &935798343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4960,75 +4986,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d009bdeae5acb964eb82e7c17a9746be, type: 3}
+  m_Script: {fileID: 11500000, guid: 90c44370a15d91440b86d8996a622366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  characterstats:
-  - name: 
-    value: 0
-  - name: 
-    value: 0
-  - name: 
-    value: 0
-  - name: 
-    value: 0
-  - name: 
-    value: 0
-  - name: 
-    value: 0
-  characterStatus:
-  - name: 
-    currentValue: 0
-    maxValue: 0
-    regenValue: 0
-    displayImage: {fileID: 0}
-  - name: 
-    currentValue: 0
-    maxValue: 0
-    regenValue: 0
-    displayImage: {fileID: 0}
-  - name: 
-    currentValue: 0
-    maxValue: 0
-    regenValue: 0
-    displayImage: {fileID: 0}
-  level: 0
-  currentExp: 0
-  neededExp: 0
-  maxExp: 0
-  quest:
-    questState: 0
-    title: 
-    description: 
-    condition1: 
-    condition2: 
-    condition3: 
-    expReward: 0
-    goldReward: 0
-    goal:
-      questState: 0
-      goalType: 0
-      enemyType: 
-      itemId: 0
-      requiredAmount: 0
-      currentAmount: 0
-      isReached: 0
-  damageImage: {fileID: 0}
-  deathImage: {fileID: 0}
-  deathText: {fileID: 0}
-  reviveText: {fileID: 0}
-  deathClip: {fileID: 0}
-  playersAudio: {fileID: 0}
-  deathMessages: []
-  reviveMessages: []
-  currentCheckpoint: {fileID: 0}
-  flashSpeed: 5
-  flashColour: {r: 1, g: 0, b: 0, a: 0.2}
-  transparent: {r: 0, g: 0, b: 0, a: 0}
-  deathTextColor: {r: 255, g: 0, b: 0, a: 1}
-  damaged: 0
-  savedPosition: {x: 0, y: 0, z: 0}
+  audioSource: {fileID: 963194234}
+  music: {fileID: 0}
 --- !u!1 &1014872894
 GameObject:
   m_ObjectHideFlags: 0
@@ -5557,7 +5519,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 963194235}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadPlayer
         m_Mode: 1
         m_Arguments:
@@ -6005,6 +5967,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 963194235}
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 04859f46924be724f98c31e4d4c4b8d1,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -9067,6 +9041,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 963194235}
+        m_MethodName: PlaySound
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 04859f46924be724f98c31e4d4c4b8d1,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2056917899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9358,7 +9344,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2141408371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9399,8 +9385,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: c9302a9288ac2ce4ca8f5b50f3290773, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

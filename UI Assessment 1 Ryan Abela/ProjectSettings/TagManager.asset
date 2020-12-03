@@ -8,6 +8,7 @@ TagManager:
   - NPC
   - CharacterMesh
   - Chest
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Not Clickable
   - Player
   - Interactable
-  - 
+  - Minimap
   - 
   - 
   - 

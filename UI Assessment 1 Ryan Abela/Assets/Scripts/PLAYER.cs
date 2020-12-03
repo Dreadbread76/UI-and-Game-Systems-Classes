@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class PLAYER : MonoBehaviour
 {
-
+    #region Variables
     public Stats.BaseStats baseStats;
     // Start is called before the first frame update
 
@@ -40,6 +40,9 @@ public class PLAYER : MonoBehaviour
         public KeyCode Inventory;
     }
     public KeybindInputs keybindInput;
+
+    #endregion
+    #region Start
     void Start()
     {
         keybindInput.Forward = KeybindManager.keys["Forward"];
@@ -54,10 +57,9 @@ public class PLAYER : MonoBehaviour
         
         
     }
-
-    // Update is called once per frame
-    #region Update Function
     #endregion
+    #region Update Function
+
 
     void Update()
     {
@@ -77,6 +79,7 @@ public class PLAYER : MonoBehaviour
         {
             moveDirection.x = -1;
         }
+        
 /*
         float horizontal = 0;
         float vertical = 0;
@@ -129,6 +132,7 @@ public class PLAYER : MonoBehaviour
         }
        
     }
+#endregion
     void Interact()
     {
         if (Input.GetKeyDown(KeyCode.E))

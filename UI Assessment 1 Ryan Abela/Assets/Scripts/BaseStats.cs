@@ -26,7 +26,6 @@ namespace Stats
             public Image displayImage;
         }
         #endregion
-
         #region Variables
         [Header("Character Data")]
         public new string name;
@@ -49,20 +48,21 @@ namespace Stats
         public string[] reviveMessages;
         public Transform currentCheckpoint;
         int msgIndex;
+        public Color deathTextColor = new Color(255, 0, 0, 1);
+        public static bool isDead;
 
+        [Header("Injured")]
         public float flashSpeed = 5;
         public Color flashColour = new Color(1, 0, 0, 0.2f);
         public Color transparent = new Color(0, 0, 0, 0);
-        public Color deathTextColor = new Color(255, 0, 0, 1);
-        public static bool isDead;
-        //REMOVE LATER
         public bool damaged = false;
+
         public Vector3 savedPosition;
 
-        
+
 
         #endregion
-        // Start is called before the first frame update
+        #region Start
         void Start()
         {
             if(deathText != null)
@@ -78,8 +78,8 @@ namespace Stats
             isDead = false;
             msgIndex = Random.Range(0, 4);
         }
-
-        // Update is called once per frame
+        #endregion
+        #region Update
         private void Update()
         {
 #if UNITY_EDITOR
@@ -92,12 +92,20 @@ namespace Stats
                 characterStatus[0].currentValue -= 25;
             }
 #endif
-          
-            for (int i = 0; i < characterStatus.Length; i++)
-            {
 
-                characterStatus[i].displayImage.fillAmount = Mathf.Clamp01(characterStatus[i].currentValue / characterStatus[i].maxValue);
+            if (characterStatus != null)
+            {
+                for (int i = 0; i < characterStatus.Length; i++)
+                {
+
+
+                    characterStatus[i].displayImage.fillAmount = Mathf.Clamp01(characterStatus[i].currentValue / characterStatus[i].maxValue);
+
+
+                }
             }
+
+            
             if (damaged == true && !isDead)
             {
                 damageImage.color = flashColour;
@@ -110,6 +118,8 @@ namespace Stats
 
 
         }
+        #endregion
+        #region LateUpdate
         private void LateUpdate()
         {
             if (characterStatus[0].currentValue <= 0 && !isDead)
@@ -118,13 +128,19 @@ namespace Stats
                 Death();
             }
         }
+        #endregion
+        #region Death and Revive
         void Death()
         {
             
             //Set death flag to dead and clear existing text
 
             isDead = true;
-            deathText.text = deathMessages[msgIndex];
+            if (deathText != null)
+            {
+                deathText.text = deathMessages[msgIndex];
+            }
+            
             deathText.color = deathTextColor;
             reviveText.text = "";
             //play death audio
@@ -154,51 +170,14 @@ namespace Stats
 
             deathImage.GetComponent<Animator>().SetTrigger("Respawn");
         }
+        #endregion
         #region Save and Load
         public void SavePlayer()
         {
             PlayerBinary.SavePlayer(this);
         }
 
-        public void WaitAndLoad()
-        {
-            StartCoroutine(Wait1FrameAndLoad());
-        }
-
-        private IEnumerator Wait1FrameAndLoad()
-        {
-            Time.timeScale = 1;
-            yield return null;
-            LoadPlayerOld();
-            yield return null;
-            Time.timeScale = 0;
-        }
-        public void LoadPlayerOld()
-        {
-            PlayerData data = PlayerBinary.LoadPlayer();
-
-            if(data == null)
-            {
-                return;
-            }
-
-            level = data.savedLevel;
-            characterStatus[0].currentValue = data.savedHealth;
-            name = data.savedName;
-            currentExp = data.savedExp;
-            
-
-            Vector3 position;
-            position.x = data.savedPlayerPos[0];
-            position.y = data.savedPlayerPos[1];
-            position.z = data.savedPlayerPos[2];
-
-            transform.position = position;
-            Debug.Log("Loaded");
-            savedPosition = position;
-
-            
-        }
+     
         public void LoadPlayer()
         {
 

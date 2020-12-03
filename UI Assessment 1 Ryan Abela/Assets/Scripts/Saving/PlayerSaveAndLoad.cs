@@ -3,6 +3,8 @@
 public class PlayerSaveAndLoad : MonoBehaviour
 {
     public static Stats.BaseStats player;
+
+    #region Awake
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Stats.BaseStats>();
@@ -20,7 +22,10 @@ public class PlayerSaveAndLoad : MonoBehaviour
         {
             Load();
         }
-    } 
+    }
+
+    #endregion
+    #region First Load
     void FirstLoad()
     {
         player.name = "Joe Mama";
@@ -39,11 +44,16 @@ public class PlayerSaveAndLoad : MonoBehaviour
             player.characterstats[i].value = 10;
         }
     }
+
+    #endregion
+    #region Save
     public static void Save()
     {
         //Do when Binary is done
         PlayerBinary.SavePlayer(player);
     }
+    #endregion
+    #region Load
     public static void Load()
     {
         //Do this when Binary is done
@@ -68,4 +78,5 @@ public class PlayerSaveAndLoad : MonoBehaviour
         player.transform.position = new Vector3(data.savedPlayerPos[0], data.savedPlayerPos[1], data.savedPlayerPos[2]);
         player.transform.rotation = new Quaternion(data.savedPlayerRot[0], data.savedPlayerRot[1], data.savedPlayerRot[2],data.savedPlayerRot[3]);        
     }
+    #endregion
 }

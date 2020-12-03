@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
+    #region Variables
     public static bool isPaused;
     public GameObject pausePanel;
     public GameObject optionsPanel;
@@ -16,9 +17,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     public GameObject player;
 
-
-
-    // Start is called before the first frame update
+    #endregion
+    #region Start
     void Start()
     {
         Time.timeScale = 1;
@@ -30,8 +30,8 @@ public class PauseMenu : MonoBehaviour
 
 
     }
-
-    // Update is called once per frame
+    #endregion
+    #region Update
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -39,6 +39,8 @@ public class PauseMenu : MonoBehaviour
             PauseMenuActive();
         }
     }
+    #endregion
+    #region Pause Menu
     public void PauseMenuActive()
     {
         
@@ -65,7 +67,7 @@ public class PauseMenu : MonoBehaviour
             pausePanel.SetActive(false);
         }
     }
-
+    #endregion
 
 
 }

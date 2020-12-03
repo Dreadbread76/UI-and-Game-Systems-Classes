@@ -21,7 +21,7 @@ public class QuestNPC : NPC
         }
         if(dialogue == null)
         {
-            Debug.LogError("Dont forget to include quest dialog");
+            //Debug.LogError("Dont forget to include quest dialog");
         }
 
 
