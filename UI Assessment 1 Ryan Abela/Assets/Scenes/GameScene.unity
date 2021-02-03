@@ -7384,7 +7384,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1766105974}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10613,7 +10613,7 @@ RectTransform:
   - {fileID: 434434122}
   - {fileID: 1817818569}
   m_Father: {fileID: 1766105974}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -12533,7 +12533,7 @@ RectTransform:
   - {fileID: 2006844046}
   - {fileID: 1501126818}
   m_Father: {fileID: 1766105974}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -16030,13 +16030,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daaac77dac278ea4d86d9ce6fb4a737e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseStats: {fileID: 0}
+  baseStats: {fileID: 1711495565}
   controller: {fileID: 0}
   gravity: -20
   speed: 5
   walkSpeed: 5
   jumpSpeed: 8
-  sprintSpeed: 10
+  sprintSpeed: 15
+  sprintCutOff: 0
+  sprintCutOffBase: 20
+  sprintOut: 0
   crouchSpeed: 3
   crouching: 0
   walking: 0
@@ -16984,10 +16987,10 @@ RectTransform:
   - {fileID: 1677760233}
   - {fileID: 970405501}
   - {fileID: 719284015}
-  - {fileID: 1148213342}
   - {fileID: 2132191942}
   - {fileID: 783977039}
   - {fileID: 1375332466}
+  - {fileID: 1148213342}
   - {fileID: 1282755737}
   - {fileID: 250854361}
   - {fileID: 374761769}
@@ -20748,7 +20751,7 @@ RectTransform:
   - {fileID: 195365593}
   - {fileID: 1112913140}
   m_Father: {fileID: 1766105974}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

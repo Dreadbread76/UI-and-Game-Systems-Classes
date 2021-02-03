@@ -21,10 +21,16 @@ public class PLAYER : MonoBehaviour
     public float walkSpeed = 5f;
     public float jumpSpeed = 8f;
     public float sprintSpeed = 10f;
+    public float sprintCutOff;
+    public float sprintCutOffBase = 20f;
+    public float sprintOut = 0f;
     public float crouchSpeed = 2f;
     public bool crouching;
     public bool walking;
     public Vector3 moveDirection;
+
+   
+    
 
     [System.Serializable]
     public struct KeybindInputs
@@ -54,7 +60,9 @@ public class PLAYER : MonoBehaviour
         keybindInput.Crouch = KeybindManager.keys["Crouch"];
 
         controller = this.gameObject.AddComponent<CharacterController>();
-        
+
+
+
         
     }
     #endregion
@@ -79,28 +87,29 @@ public class PLAYER : MonoBehaviour
         {
             moveDirection.x = -1;
         }
-        
-/*
-        float horizontal = 0;
-        float vertical = 0;
-        if (Input.GetKey(KeybindManager.keys["Forward"]))
-        {
-            vertical++;
-        }
-        if (Input.GetKey(KeybindManager.keys["Left"]))
-        {
-            horizontal--;
-        }
-        if (Input.GetKey(KeybindManager.keys["Backward"]))
-        {
-            vertical--;
-        }
-        if (Input.GetKey(KeybindManager.keys["Right"]))
-        {
-            horizontal++;
-        }
-        */
+       
+        /*
+                float horizontal = 0;
+                float vertical = 0;
+                if (Input.GetKey(KeybindManager.keys["Forward"]))
+                {
+                    vertical++;
+                }
+                if (Input.GetKey(KeybindManager.keys["Left"]))
+                {
+                    horizontal--;
+                }
+                if (Input.GetKey(KeybindManager.keys["Backward"]))
+                {
+                    vertical--;
+                }
+                if (Input.GetKey(KeybindManager.keys["Right"]))
+                {
+                    horizontal++;
+                }
+                */
         //MOVE WHEN GROUNDED
+
         if (controller.isGrounded)
         {
             moveDirection = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
@@ -114,9 +123,10 @@ public class PLAYER : MonoBehaviour
         moveDirection.y += gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.W) && baseStats.characterStatus[1].currentValue > sprintCutOff)
         {
             speed = sprintSpeed;
+            baseStats.characterStatus[1].currentValue--;
         }
         else if (Input.GetKeyDown(keybindInput.Crouch))
         {
@@ -125,10 +135,21 @@ public class PLAYER : MonoBehaviour
         else
         {
             speed = walkSpeed;
+            baseStats.characterStatus[1].currentValue++;
         }
         if (crouching)
         {
             speed = crouchSpeed;
+        }
+
+
+        if (baseStats.characterStatus[1].currentValue <= sprintCutOff)
+        {
+            sprintCutOff = sprintCutOffBase;
+        }
+        else
+        {
+            sprintCutOff = sprintOut;
         }
        
     }

@@ -57,6 +57,9 @@ namespace Stats
         public Color transparent = new Color(0, 0, 0, 0);
         public bool damaged = false;
 
+        [Header("Stat Modifiers")]
+        float[] statMod = new float[6];
+
         public Vector3 savedPosition;
 
 
@@ -77,19 +80,39 @@ namespace Stats
             damaged = false;
             isDead = false;
             msgIndex = Random.Range(0, 4);
+
+            #region Stat Modifiers
+            for (int i = 0; i < statMod.Length; i++)
+            {
+                statMod[i] = characterstats[i].value * 0.1f;
+            }
+            #endregion
+
+            characterStatus[0].maxValue = characterStatus[0].maxValue * statMod[0];
+            characterStatus[0].regenValue = characterStatus[0].regenValue * statMod[5];
+            characterStatus[1].maxValue = characterStatus[1].maxValue * statMod[1];
+            characterStatus[1].regenValue = characterStatus[1].regenValue * statMod[2];
+            characterStatus[2].maxValue = characterStatus[2].maxValue * statMod[3];
+            characterStatus[2].regenValue = characterStatus[2].regenValue * statMod[4];
         }
         #endregion
         #region Update
         private void Update()
         {
+           
+
 #if UNITY_EDITOR
 
-            
+
             if (Input.GetKeyDown(KeyCode.X))
             {
                 
                 damaged = true;
                 characterStatus[0].currentValue -= 25;
+            }
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                characterStatus[2].currentValue -= 25;
             }
 #endif
 
